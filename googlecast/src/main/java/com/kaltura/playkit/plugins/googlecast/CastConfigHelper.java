@@ -15,7 +15,6 @@ package com.kaltura.playkit.plugins.googlecast;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,18 +39,12 @@ abstract class CastConfigHelper {
         String mwEmbedUrl = castInfo.getMwEmbedUrl();
         String textLangaugeLabel = castInfo.getDefaultTextLangaugeLabel();
 
-
         JSONObject customData = new JSONObject();
         JSONObject embedConfig = new JSONObject();
 
-
         setEmbedConfig(customData, embedConfig, uiConf, fileFormat, entryId, partnerId, adTagUrl, sessionInfo, mwEmbedUrl, textLangaugeLabel);
-
         return customData;
     }
-
-
-
 
     private void setEmbedConfig(JSONObject customData, JSONObject embedConfig, String uiConf,
                                 String fileFormat, String entryId,
@@ -81,12 +74,9 @@ abstract class CastConfigHelper {
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
         }
-
     }
 
-
     protected abstract String getSessionInfo(CastInfo castInfo);
-
 
     private void setFlashVars(JSONObject embedConfig, String sessionInfo, String adTagUrl,
                               String fileFormat, String entryId) {
@@ -100,13 +90,12 @@ abstract class CastConfigHelper {
                 embedConfig.put("flashVars", flashVars);
 
             }
-
+            
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
         }
 
     }
-
 
     private JSONObject getFlashVars(String sessionInfo, String adTagUrl,
                                     String fileFormat, String entryId) {
@@ -119,12 +108,8 @@ abstract class CastConfigHelper {
         return flashVars;
     }
 
-
-
-
     protected abstract void setProxyData(JSONObject flashVars, String sessionData,
                                          String fileFormat, String entryId);
-
 
 
     private void setDoubleClickPlugin(JSONObject flashVars, String adTagUrl) {
@@ -144,10 +129,5 @@ abstract class CastConfigHelper {
             }
 
         }
-
     }
-
-
-
-
 }
