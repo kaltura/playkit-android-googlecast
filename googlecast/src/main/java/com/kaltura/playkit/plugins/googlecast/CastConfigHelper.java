@@ -111,7 +111,6 @@ abstract class CastConfigHelper {
     protected abstract void setProxyData(JSONObject flashVars, String sessionData,
                                          String fileFormat, String entryId);
 
-
     private void setDoubleClickPlugin(JSONObject flashVars, String adTagUrl) {
 
         JSONObject doubleClick = new JSONObject();
@@ -127,7 +126,6 @@ abstract class CastConfigHelper {
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage());
             }
-
         }
     }
 }
