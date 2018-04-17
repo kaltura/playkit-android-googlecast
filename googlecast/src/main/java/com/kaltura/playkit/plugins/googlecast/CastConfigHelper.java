@@ -13,6 +13,7 @@
 package com.kaltura.playkit.plugins.googlecast;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import org.json.JSONException;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 
 abstract class CastConfigHelper {
 
-    //protected static final PKLog log = PKLog.get("CastConfigHelper");
+    protected static final String TAG = "CastConfigHelper";
 
 
     JSONObject getCustomData(CastInfo castInfo) {
@@ -78,7 +79,7 @@ abstract class CastConfigHelper {
                 customData.put("receiverConfig", receiverConfig);
             }
         } catch (JSONException e) {
-            //log.e(e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -101,7 +102,7 @@ abstract class CastConfigHelper {
             }
 
         } catch (JSONException e) {
-            //log.e(e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -139,7 +140,7 @@ abstract class CastConfigHelper {
                 flashVars.put("doubleClick", doubleClick);
 
             } catch (JSONException e) {
-                //log.e(e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
 
         }
