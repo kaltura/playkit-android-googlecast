@@ -13,7 +13,7 @@
 package com.kaltura.playkit.plugins.googlecast;
 
 import android.text.TextUtils;
-import android.util.Log;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,11 +25,10 @@ import org.json.JSONObject;
 
 abstract class CastConfigHelper {
 
-    private static final String TAG = CastConfigHelper.class.getSimpleName();
+    //protected static final PKLog log = PKLog.get("CastConfigHelper");
 
 
     JSONObject getCustomData(CastInfo castInfo) {
-
 
         String uiConf = castInfo.getUiConfId();
         String fileFormat = castInfo.getFormat();
@@ -38,19 +37,25 @@ abstract class CastConfigHelper {
         String adTagUrl = castInfo.getAdTagUrl();
         String sessionInfo = getSessionInfo(castInfo);
         String mwEmbedUrl = castInfo.getMwEmbedUrl();
+        String textLangaugeLabel = castInfo.getDefaultTextLangaugeLabel();
+
 
         JSONObject customData = new JSONObject();
         JSONObject embedConfig = new JSONObject();
 
-        setEmbedConfig(customData, embedConfig, uiConf, fileFormat, entryId, partnerId, adTagUrl, sessionInfo, mwEmbedUrl);
+
+        setEmbedConfig(customData, embedConfig, uiConf, fileFormat, entryId, partnerId, adTagUrl, sessionInfo, mwEmbedUrl, textLangaugeLabel);
 
         return customData;
     }
 
+
+
+
     private void setEmbedConfig(JSONObject customData, JSONObject embedConfig, String uiConf,
                                 String fileFormat, String entryId,
                                 String partnerId, String adTagUrl, String sessionInfo,
-                                String mwEmbedUrl) {
+                                String mwEmbedUrl, String textLangaugeLabel) {
 
         try {
 
@@ -66,13 +71,21 @@ abstract class CastConfigHelper {
 
             customData.put("embedConfig", embedConfig);
 
+            //Add default captions language in cast
+            if (!TextUtils.isEmpty(textLangaugeLabel)) {
+                JSONObject receiverConfig = new JSONObject();
+                receiverConfig.put("defaultLanguageKey", textLangaugeLabel);
+                customData.put("receiverConfig", receiverConfig);
+            }
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+            //log.e(e.getMessage());
         }
 
     }
 
+
     protected abstract String getSessionInfo(CastInfo castInfo);
+
 
     private void setFlashVars(JSONObject embedConfig, String sessionInfo, String adTagUrl,
                               String fileFormat, String entryId) {
@@ -88,7 +101,7 @@ abstract class CastConfigHelper {
             }
 
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+            //log.e(e.getMessage());
         }
 
     }
@@ -106,8 +119,12 @@ abstract class CastConfigHelper {
     }
 
 
+
+
     protected abstract void setProxyData(JSONObject flashVars, String sessionData,
                                          String fileFormat, String entryId);
+
+
 
     private void setDoubleClickPlugin(JSONObject flashVars, String adTagUrl) {
 
@@ -122,9 +139,14 @@ abstract class CastConfigHelper {
                 flashVars.put("doubleClick", doubleClick);
 
             } catch (JSONException e) {
-                Log.e(TAG, e.getMessage());
+                //log.e(e.getMessage());
             }
+
         }
+
     }
+
+
+
 
 }
