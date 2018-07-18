@@ -16,11 +16,12 @@ cache:
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 before_script:
-  - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+  - mkdir -p $ANDROID_HOME/licenses
+  - echo $android_sdk_license > $ANDROID_HOME/licenses/android-sdk-license
 script:
   - ./gradlew googlecast:build
 after_failure:
-  - cat googlecast/build/reports/lint-results.xml
+  - cat googlecast/build/outputs/lint-results-debug.xml
 after_success:
   - ./travis-push-to-bintray.sh
 notifications:
@@ -31,4 +32,3 @@ notifications:
       - Anton.Afanasiev@kaltura.com
     on_success: always
     on_failure: always
-
