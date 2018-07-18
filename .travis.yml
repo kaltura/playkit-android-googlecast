@@ -11,7 +11,7 @@ before_script:
 script:
   - ./gradlew googlecast:build
 after_failure:
-  - cat googlecast/build/outputs/lint-results-debug.xml
+  - cat googlecast/build/reports/lint-results.xml
 after_success:
   - ./travis-push-to-bintray.sh
 notifications:
