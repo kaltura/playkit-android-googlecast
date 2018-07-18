@@ -1,0 +1,37 @@
+language: android
+dist: trusty
+sudo: required
+jdk:
+  - oraclejdk8
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-27.0.0
+  - android-27
+  - extra-android-m2repository
+  - extra-google-m2repository
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+before_script:
+  - mkdir -p $ANDROID_HOME/licenses
+  - echo $android_sdk_license > $ANDROID_HOME/licenses/android-sdk-license
+script:
+  - ./gradlew googlecast:build
+after_failure:
+  - cat googlecast/build/reports/lint-results.xml
+after_success:
+  - ./travis-push-to-bintray.sh
+notifications:
+  email:
+    recipients:
+      - noam.tamim@kaltura.com
+      - gilad.nadav@kaltura.com
+      - Anton.Afanasiev@kaltura.com
+    on_success: always
+    on_failure: always
+
