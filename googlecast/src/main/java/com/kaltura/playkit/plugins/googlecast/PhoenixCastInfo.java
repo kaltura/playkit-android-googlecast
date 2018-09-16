@@ -137,42 +137,43 @@ public class PhoenixCastInfo extends GenericCastInfo {
     }
 
     public JSONObject getCastInfoAsJson() {
-        JSONObject mediaInfo = new JSONObject();
+        JSONObject customData = new JSONObject();
         try {
-            JSONObject customData = new JSONObject();
-            customData.put("entryId", getMediaEntryId());
+            JSONObject mediaData = new JSONObject();
+            mediaData.put("entryId", getMediaEntryId());
             if (!TextUtils.isEmpty(getKs())) {
-                customData.put("ks", getKs());
+                mediaData.put("ks", getKs());
             }
-            if (!TextUtils.isEmpty(getTextLanguage())) {
-                customData.put("textLanguage", getTextLanguage());
-            }
-            if (!TextUtils.isEmpty(getAudioLanguage())) {
-                customData.put("audioLanguage", getAudioLanguage());
-            }
+
             if (getMediaType() != null) {
-                customData.put("mediaType", getMediaType().value);
+                mediaData.put("mediaType", getMediaType().value);
             }
             if (getContextType() != null) {
-                customData.put("contextType", getContextType().value);
+                mediaData.put("contextType", getContextType().value);
             }
             if (getProtocol() != null) {
-                customData.put("protocol", getProtocol().value);
+                mediaData.put("protocol", getProtocol().value);
             }
             if (!TextUtils.isEmpty(getFileIds())) {
-                customData.put("fileIds", getFileIds());
+                mediaData.put("fileIds", getFileIds());
             }
             if (getFormats() != null) {
                 JSONArray formatsArray = new JSONArray();
                 for (String format : getFormats()) {
                     formatsArray.put(format);
                 }
-                customData.put("formats", formatsArray);
+                mediaData.put("formats", formatsArray);
             }
-            mediaInfo.put("mediaInfo", customData);
+            customData.put("mediaInfo", mediaData);
+            if (!TextUtils.isEmpty(getTextLanguage())) {
+                customData.put("textLanguage", getTextLanguage());
+            }
+            if (!TextUtils.isEmpty(getAudioLanguage())) {
+                customData.put("audioLanguage", getAudioLanguage());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return mediaInfo;
+        return customData;
     }
 }

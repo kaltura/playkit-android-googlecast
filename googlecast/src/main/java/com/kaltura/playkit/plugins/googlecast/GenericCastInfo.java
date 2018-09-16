@@ -62,25 +62,24 @@ public class GenericCastInfo {
     }
 
     public JSONObject getCastInfoAsJson() {
-        JSONObject mediaInfo = new JSONObject();
+        JSONObject customData = new JSONObject();
         try {
-
-            JSONObject customData = new JSONObject();
-            customData.put("entryId", getMediaEntryId());
+            JSONObject mediaData = new JSONObject();
+            mediaData.put("entryId", getMediaEntryId());
             if (!TextUtils.isEmpty(getKs())) {
-                customData.put("ks", getKs());
+                mediaData.put("ks", getKs());
             }
+            customData.put("mediaInfo", mediaData);
             if (!TextUtils.isEmpty(getTextLanguage())) {
                 customData.put("textLanguage", getTextLanguage());
             }
             if (!TextUtils.isEmpty(getAudioLanguage())) {
                 customData.put("audioLanguage", getAudioLanguage());
             }
-            mediaInfo.put("mediaInfo", customData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return mediaInfo;
+        return customData;
     }
 }
 
