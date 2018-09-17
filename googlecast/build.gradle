@@ -31,7 +31,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Google Cast
-    api 'com.google.android.gms:play-services-cast-framework:15.0.1', {
+    api 'com.google.android.gms:play-services-cast-framework:16.0.2', {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'animated-vector-drawable'
         exclude group: 'com.android.support', module: 'support-v4'
