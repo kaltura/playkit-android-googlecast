@@ -27,13 +27,13 @@ import java.util.List;
 class GenericCastInfo {
     //GenericData
     private String mediaEntryId;
-    private String ks;
-    private String textLanguage;
-    private String audioLanguage;
-    private MediaMetadata mediaMetadata;
-    private TextTrackStyle textTrackStyle;
-    private GenericCastBuilder.StreamType streamType;
-    private AdsModel adsModel;
+    private String ks;                     // optional
+    private String textLanguage;           // optional
+    private String audioLanguage;          // optional
+    private MediaMetadata mediaMetadata;   // optional
+    private TextTrackStyle textTrackStyle; // optional
+    private GenericCastBuilder.StreamType streamType; // optional
+    private AdsModel adsModel; // optional
 
     //Phoenix Extra Data
     private GenericCastBuilder.KalturaAssetType mediaType;
