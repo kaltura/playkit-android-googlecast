@@ -4,55 +4,50 @@ import android.support.v4.util.Pair;
 
 import com.google.android.gms.cast.AdBreakClipInfo;
 import com.google.android.gms.cast.AdBreakInfo;
-import com.google.android.gms.cast.VastAdsRequest;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class AdsModel {
 
-    String adTagUrl;
-    boolean isVast;
-    private List<AdBreakClipInfo> adBreakClipInfoList;
-    private List<AdBreakInfo> adBreakInfoList;
+    private VmapAdRequest vmapAdRequest;
+    private GenericCastBuilder.AdTagType adTagType;
+    private List<AdBreakClipInfo> vastAdBreakClipInfoList;
+    private List<AdBreakInfo> vastAdBreakInfoList;
 
-    public AdsModel(String adTagUrl, boolean isVast) {
-        this.adTagUrl = adTagUrl;
-        this.isVast = isVast;
-        if (isVast) {
-            Pair<List<AdBreakClipInfo>,List<AdBreakInfo>> vastModelPair = getAdsData(adTagUrl);
-            adBreakClipInfoList = vastModelPair.first;
-            adBreakInfoList = vastModelPair.second;
-        }
+    public AdsModel(GenericCastBuilder.AdTagType adTagType) {
+        this.adTagType = adTagType;
     }
 
-    public String getAdTagUrl() {
-        return adTagUrl;
+    public GenericCastBuilder.AdTagType getAdTagType() {
+        return adTagType;
     }
 
-    public boolean isVast() {
-        return isVast;
+    public AdsModel setVmapAdRequest(VmapAdRequest vmapAdRequest) {
+        this.vmapAdRequest = vmapAdRequest;
+        return this;
     }
 
-    public List<AdBreakClipInfo> getAdBreakClipInfoList() {
-        return adBreakClipInfoList;
+    public AdsModel setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
+        this.vastAdBreakClipInfoList = vastAdBreakClipInfoList;
+        return this;
     }
 
-    public List<AdBreakInfo> getAdBreakInfoList() {
-        return adBreakInfoList;
+    public AdsModel setVastAdBreakInfoList(List<AdBreakInfo> vastAdBreakInfoList) {
+        this.vastAdBreakInfoList = vastAdBreakInfoList;
+        return this;
     }
 
-    private Pair<List<AdBreakClipInfo>,List<AdBreakInfo>> getAdsData(String vastAdTag) {
+    public VmapAdRequest getVmapAdRequest() {
+        return vmapAdRequest;
+    }
 
-        List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
-        VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdTagUrl(vastAdTag).build();
-        AdBreakClipInfo clipInfo1 = new AdBreakClipInfo.Builder("100").setVastAdsRequest(vastRequest).build();
-        adBreakClipInfoList.add(clipInfo1);
+    public List<AdBreakClipInfo> getVastAdBreakClipInfoList() {
+        return vastAdBreakClipInfoList;
+    }
 
-        List<AdBreakInfo> adBreakInfoList = new ArrayList<>();
-        final String [] breakClipIds  = new String [] {"100"};
-        AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(0).setBreakClipIds(breakClipIds).setId("101").build();
-        adBreakInfoList.add(adBreakInfo1);
-        return new Pair(adBreakClipInfoList, adBreakInfoList);
+    public List<AdBreakInfo> getVastAdBreakInfoList() {
+        return vastAdBreakInfoList;
     }
 }

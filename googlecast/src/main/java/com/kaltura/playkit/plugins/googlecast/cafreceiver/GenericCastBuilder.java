@@ -68,6 +68,13 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
             this.value = value;
         }
     }
+
+    public enum AdTagType {
+        UNKNOWN,
+        VMAP,
+        VAST
+    }
+
     private static final String MOCK_DATA = "MOCK_DATA";
     GenericCastInfo castInfo;
 
@@ -177,9 +184,9 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         }
 
         AdsModel adsModel = castInfo.getAdsModel();
-        if (adsModel != null && adsModel.isVast) {
-            mediaInfoBuilder.setAdBreakClips(adsModel.getAdBreakClipInfoList());
-            mediaInfoBuilder.setAdBreaks(adsModel.getAdBreakInfoList());
+        if (adsModel != null && adsModel.getAdTagType() == AdTagType.VAST) {
+            mediaInfoBuilder.setAdBreakClips(adsModel.getVastAdBreakClipInfoList());
+            mediaInfoBuilder.setAdBreaks(adsModel.getVastAdBreakInfoList());
         }
     }
 
@@ -214,9 +221,14 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
 
         // adTagUrl isn't mandatory, but if you set adTagUrl it must be valid
         if (castInfo.getAdsModel() != null) {
-            String adTagUrl = castInfo.getAdsModel().adTagUrl;
-            if (adTagUrl != null && TextUtils.isEmpty(adTagUrl)) {
-                throw new IllegalArgumentException();
+            if (castInfo.getAdsModel().getAdTagType() == AdTagType.VMAP) {
+                if (castInfo.getAdsModel().getVmapAdRequest() == null || castInfo.getAdsModel().getVmapAdRequest().toSONObject() == null) {
+                    throw new IllegalArgumentException();
+                }
+            } else  if (castInfo.getAdsModel().getAdTagType() == AdTagType.VAST) {
+                if (castInfo.getAdsModel().getVastAdBreakClipInfoList() == null || castInfo.getAdsModel().getVastAdBreakInfoList() == null) {
+                    throw new IllegalArgumentException();
+                }
             }
         }
 

@@ -197,6 +197,15 @@ class GenericCastInfo {
             if (!TextUtils.isEmpty(getAudioLanguage())) {
                 customData.put("audioLanguage", getAudioLanguage());
             }
+
+            if(getAdsModel() != null && getAdsModel().getAdTagType() == GenericCastBuilder.AdTagType.VMAP) {
+                if (getAdsModel().getVmapAdRequest() != null) {
+                    JSONObject vmapAdRequestJson = getAdsModel().getVmapAdRequest().toSONObject();
+                    if (vmapAdRequestJson != null) {
+                        customData.put("vmapAdsRequest", vmapAdRequestJson);
+                    }
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
