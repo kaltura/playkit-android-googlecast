@@ -15,12 +15,6 @@ package com.kaltura.playkit.plugins.googlecast.cafreceiver;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.cast.MediaMetadata;
-import com.google.android.gms.cast.TextTrackStyle;
-
-import java.util.List;
-
 public class CAFCastBuilder extends GenericCastBuilder<CAFCastBuilder> {
 
 

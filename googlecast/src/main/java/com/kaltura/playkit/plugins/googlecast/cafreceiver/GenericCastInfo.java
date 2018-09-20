@@ -1,5 +1,3 @@
-package com.kaltura.playkit.plugins.googlecast.cafreceiver;
-
 /*
  * ============================================================================
  * Copyright (C) 2017 Kaltura Inc.
@@ -11,6 +9,9 @@ package com.kaltura.playkit.plugins.googlecast.cafreceiver;
  * https://www.gnu.org/licenses/agpl-3.0.html
  * ============================================================================
  */
+
+
+package com.kaltura.playkit.plugins.googlecast.cafreceiver;
 
 import android.text.TextUtils;
 
