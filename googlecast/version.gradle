@@ -4,7 +4,7 @@ ext.libVersion = 'dev'
 
 // Append short commit hash to dev builds, i.e. "dev.a1b2c3d"
 if (libVersion == 'dev') {
-    def cmd = "git rev-parse --short HEAD"
+    def cmd = "git -C " + projectDir + " rev-parse --short HEAD"
     def proc = cmd.execute()
     def commit = proc.text.trim()
     ext.libVersion = 'dev.' + commit
@@ -16,8 +16,8 @@ try {
     apply plugin: 'bintray-release'
 
     publish {
-        artifactId = 'googlecastplugin'
-        description = 'PlayKit Google Cast Plugin'
+        artifactId = 'googlecast'
+        description = 'PlayKit Google Cast Addon'
         repoName = 'android'
         userOrg = 'kaltura'
         groupId = 'com.kaltura.playkit'
