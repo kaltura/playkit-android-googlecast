@@ -45,6 +45,7 @@ public class MediaInfoUtils {
                                               String ks,
                                               boolean isLiveMedia,
                                               GenericCastBuilder.KalturaAssetType mediaType,
+                                              GenericCastBuilder.AssetReferenceType assetReferenceType,
                                               GenericCastBuilder.PlaybackContextType playbackContextType,
                                               List<String> formats,
                                               String fileIds,
@@ -58,6 +59,7 @@ public class MediaInfoUtils {
                 .setMediaEntryId(entryId)
                 .setKs(ks)
                 .setMediaType(mediaType)
+                .setAssetReferenceType(assetReferenceType)
                 .setContextType(playbackContextType)
                 .setFormats(formats)
                 .setFileIds(fileIds)

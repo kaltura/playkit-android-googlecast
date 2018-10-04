@@ -67,6 +67,18 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         }
     }
 
+    public enum AssetReferenceType {
+        Media("media"),
+        InternalEpg("epg_internal"),
+        ExternalEpg("epg_external");
+
+        public String value;
+
+        AssetReferenceType(String value){
+            this.value = value;
+        }
+    }
+
     public enum AdTagType {
         UNKNOWN,
         VMAP,
@@ -139,8 +151,8 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         castInfo.setProtocol(protocol);
         return (T) this;    }
 
-    public T getCustomData(@NonNull StreamType streamType) {
-        castInfo.setStreamType(streamType);
+    public T setAssetReferenceType(AssetReferenceType assetReferenceType) {
+        castInfo.setAssetReferenceType(assetReferenceType);
         return (T) this;
     }
 

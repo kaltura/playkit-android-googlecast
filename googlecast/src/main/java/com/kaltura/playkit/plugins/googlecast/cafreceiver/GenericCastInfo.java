@@ -37,6 +37,7 @@ class GenericCastInfo {
 
     //Phoenix Extra Data
     private GenericCastBuilder.KalturaAssetType mediaType;
+    private GenericCastBuilder.AssetReferenceType assetReferenceType;
     private GenericCastBuilder.PlaybackContextType contextType;
     private GenericCastBuilder.HttpProtocol protocol;
     private String fileIds; // 'FILE_ID1,FILE_ID2'
@@ -152,6 +153,14 @@ class GenericCastInfo {
         return this;
     }
 
+    public GenericCastBuilder.AssetReferenceType getAssetReferenceType() {
+        return assetReferenceType;
+    }
+
+    public GenericCastInfo setAssetReferenceType(GenericCastBuilder.AssetReferenceType assetReferenceType) {
+        this.assetReferenceType = assetReferenceType;
+        return this;
+    }
     public GenericCastBuilder.HttpProtocol getProtocol() {
         return protocol;
     }
@@ -174,6 +183,9 @@ class GenericCastInfo {
 
             if (getMediaType() != null) {
                 mediaData.put("mediaType", getMediaType().value);
+            }
+            if (getAssetReferenceType() != null) {
+                mediaData.put("assetReferenceType", getAssetReferenceType().value);
             }
             if (getContextType() != null) {
                 mediaData.put("contextType", getContextType().value);
