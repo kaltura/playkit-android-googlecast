@@ -33,7 +33,7 @@ public class VmapAdRequest {
         return this;
     }
 
-    public JSONObject toSONObject() {
+    public JSONObject toJSONObject() {
         JSONObject vmapAdsRequest = new JSONObject();
         try {
             if (!TextUtils.isEmpty(adTagUrl)) {

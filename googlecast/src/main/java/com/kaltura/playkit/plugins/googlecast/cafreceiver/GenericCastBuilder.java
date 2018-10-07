@@ -232,7 +232,7 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         // adTagUrl isn't mandatory, but if you set adTagUrl it must be valid
         if (castInfo.getAdsModel() != null) {
             if (castInfo.getAdsModel().getAdTagType() == AdTagType.VMAP) {
-                if (castInfo.getAdsModel().getVmapAdRequest() == null || castInfo.getAdsModel().getVmapAdRequest().toSONObject() == null) {
+                if (castInfo.getAdsModel().getVmapAdRequest() == null || castInfo.getAdsModel().getVmapAdRequest().toJSONObject() == null) {
                     throw new IllegalArgumentException();
                 }
             } else  if (castInfo.getAdsModel().getAdTagType() == AdTagType.VAST) {
