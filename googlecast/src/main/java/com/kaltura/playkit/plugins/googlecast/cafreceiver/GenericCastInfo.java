@@ -213,7 +213,7 @@ class GenericCastInfo {
 
             if(getAdsModel() != null && getAdsModel().getAdTagType() == GenericCastBuilder.AdTagType.VMAP) {
                 if (getAdsModel().getVmapAdRequest() != null) {
-                    JSONObject vmapAdRequestJson = getAdsModel().getVmapAdRequest().toSONObject();
+                    JSONObject vmapAdRequestJson = getAdsModel().getVmapAdRequest().toJSONObject();
                     if (vmapAdRequestJson != null) {
                         customData.put("vmapAdsRequest", vmapAdRequestJson);
                     }
