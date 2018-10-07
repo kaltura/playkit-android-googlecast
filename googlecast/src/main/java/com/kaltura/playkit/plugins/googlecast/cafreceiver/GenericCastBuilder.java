@@ -203,6 +203,9 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
     private void setStreamType(MediaInfo.Builder mediaInfoBuilder, GenericCastInfo castInfo) {
 
         GenericCastBuilder.StreamType streamType = castInfo.getStreamType();
+        if (streamType == null) {
+            return;
+        }
         int castStreamType;
 
         switch (streamType) {
@@ -242,8 +245,8 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
             }
         }
 
-        if (castInfo.getStreamType() == null) {
-            throw new IllegalArgumentException();
-        }
+        //if (castInfo.getStreamType() == null) {
+        //    throw new IllegalArgumentException();
+        //}
     }
 }
