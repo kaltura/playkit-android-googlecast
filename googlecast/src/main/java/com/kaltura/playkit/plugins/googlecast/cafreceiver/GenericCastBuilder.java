@@ -246,6 +246,4 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
             throw new IllegalArgumentException();
         }
     }
-
-
 }
