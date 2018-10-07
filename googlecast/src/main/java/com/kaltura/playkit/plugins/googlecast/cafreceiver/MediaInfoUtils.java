@@ -12,10 +12,14 @@
 
 package com.kaltura.playkit.plugins.googlecast.cafreceiver;
 
+import com.google.android.gms.cast.AdBreakClipInfo;
+import com.google.android.gms.cast.AdBreakInfo;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
+import com.google.android.gms.cast.VastAdsRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MediaInfoUtils {
@@ -72,5 +76,27 @@ public class MediaInfoUtils {
                 .setAdsModel(adsModel)
                 .build();
         return mediaInfo;
+    }
+
+    public static AdsModel createAdsModelVast(String adTagUrl) {
+        List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
+        VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdTagUrl(adTagUrl).build();
+        AdBreakClipInfo clipInfo1 = new AdBreakClipInfo.Builder("100").setVastAdsRequest(vastRequest).build();
+        adBreakClipInfoList.add(clipInfo1);
+
+        List<AdBreakInfo> adBreakInfoList = new ArrayList<>();
+        final String[] breakClipIds = new String[]{"100"};
+        AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(0).setBreakClipIds(breakClipIds).setId("101").build();
+        adBreakInfoList.add(adBreakInfo1);
+
+        AdsModel adsModel = new AdsModel(GenericCastBuilder.AdTagType.VAST).setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
+        return adsModel;
+    }
+
+    public static AdsModel createAdsModelVmap(String adTagUrl) {
+        AdsModel adsModel = new AdsModel(GenericCastBuilder.AdTagType.VMAP).
+                setVmapAdRequest(new VmapAdRequest().
+                        setAdTagUrl(adTagUrl));
+        return adsModel;
     }
 }
