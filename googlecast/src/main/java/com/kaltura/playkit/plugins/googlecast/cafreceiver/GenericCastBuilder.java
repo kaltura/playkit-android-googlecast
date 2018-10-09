@@ -89,7 +89,7 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         VAST
     }
 
-    private static final String MOCK_DATA = "MOCK_DATA";
+    private static final String CONTENT_ID = "CONTENT_ID";
     GenericCastInfo castInfo;
 
 
@@ -171,10 +171,9 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
 
         JSONObject customData = castInfo.getCustomData();
 
-        MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(MOCK_DATA)
-                .setContentType(MOCK_DATA)
-                .setCustomData(customData);
+        MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
 
+        //setContentType(mediaInfoBuilder, castInfo);  // contentType not needed for new receiver
         setStreamType(mediaInfoBuilder, castInfo);
         setOptionalData(mediaInfoBuilder, castInfo);
 
