@@ -81,7 +81,7 @@ public class MediaInfoUtils {
         return mediaInfo;
     }
 
-    public static AdsModel createAdsModelVast(String adTagUrl) {
+    public static AdsModel createAdsModelVastInPosition(long playbackPositionInMs, String adTagUrl) {
         List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
         VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdTagUrl(adTagUrl).build();
         AdBreakClipInfo clipInfo1 = new AdBreakClipInfo.Builder("100").setVastAdsRequest(vastRequest).build();
@@ -89,7 +89,7 @@ public class MediaInfoUtils {
 
         List<AdBreakInfo> adBreakInfoList = new ArrayList<>();
         final String[] breakClipIds = new String[]{"100"};
-        AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(0).setBreakClipIds(breakClipIds).setId("101").build();
+        AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(playbackPositionInMs).setBreakClipIds(breakClipIds).setId("101").build();
         adBreakInfoList.add(adBreakInfo1);
 
         AdsModel adsModel = new VastAdsModel().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
