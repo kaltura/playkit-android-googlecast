@@ -20,6 +20,7 @@ import com.google.android.gms.cast.TextTrackStyle;
 import com.google.android.gms.cast.VastAdsRequest;
 import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.AdsModel;
 import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VastAdsModel;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdRequest;
 import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdsModel;
 
 import java.util.ArrayList;

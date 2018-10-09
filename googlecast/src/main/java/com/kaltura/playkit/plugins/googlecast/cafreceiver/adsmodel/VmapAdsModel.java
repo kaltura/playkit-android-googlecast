@@ -13,7 +13,6 @@
 package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
 
 import com.kaltura.playkit.plugins.googlecast.cafreceiver.GenericCastBuilder;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.VmapAdRequest;
 
 public class VmapAdsModel implements AdsModel {
 
