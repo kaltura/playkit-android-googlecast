@@ -18,6 +18,10 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.AdsModel;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VastAdsModel;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdsModel;
+
 import org.json.JSONObject;
 import java.util.List;
 
@@ -195,8 +199,8 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
 
         AdsModel adsModel = castInfo.getAdsModel();
         if (adsModel != null && adsModel.getAdTagType() == AdTagType.VAST) {
-            mediaInfoBuilder.setAdBreakClips(adsModel.getVastAdBreakClipInfoList());
-            mediaInfoBuilder.setAdBreaks(adsModel.getVastAdBreakInfoList());
+            mediaInfoBuilder.setAdBreakClips(((VastAdsModel)adsModel).getVastAdBreakClipInfoList());
+            mediaInfoBuilder.setAdBreaks(((VastAdsModel)adsModel).getVastAdBreakInfoList());
         }
     }
 
@@ -233,17 +237,11 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         }
 
         // adTagUrl isn't mandatory, but if you set adTagUrl it must be valid
-        if (castInfo.getAdsModel() != null) {
-            if (castInfo.getAdsModel().getAdTagType() == AdTagType.VMAP) {
-                if (castInfo.getAdsModel().getVmapAdRequest() == null || castInfo.getAdsModel().getVmapAdRequest().toJSONObject() == null) {
-                    throw new IllegalArgumentException();
-                }
-            } else  if (castInfo.getAdsModel().getAdTagType() == AdTagType.VAST) {
-                if (castInfo.getAdsModel().getVastAdBreakClipInfoList() == null || castInfo.getAdsModel().getVastAdBreakInfoList() == null) {
-                    throw new IllegalArgumentException();
-                }
-            }
+        AdsModel adsModel = castInfo.getAdsModel();
+        if (adsModel != null && !adsModel.isAdModelValid()) {
+            throw new IllegalArgumentException();
         }
+
 
         //if (castInfo.getStreamType() == null) {
         //    throw new IllegalArgumentException();

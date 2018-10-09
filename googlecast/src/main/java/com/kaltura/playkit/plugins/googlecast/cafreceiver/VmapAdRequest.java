@@ -39,7 +39,6 @@ public class VmapAdRequest {
             if (!TextUtils.isEmpty(adTagUrl)) {
                 vmapAdsRequest.put("adTagUrl", adTagUrl);
             } else if (!TextUtils.isEmpty(adsResponse)) {
-
                 vmapAdsRequest.put("adsResponse", adsResponse);
             } else {
                 return null;

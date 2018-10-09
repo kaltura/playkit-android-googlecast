@@ -10,44 +10,42 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver;
+package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
 
 import com.google.android.gms.cast.AdBreakClipInfo;
 import com.google.android.gms.cast.AdBreakInfo;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.GenericCastBuilder;
+
 import java.util.List;
 
-public class AdsModel {
+public class VastAdsModel implements AdsModel {
 
-    private GenericCastBuilder.AdTagType adTagType;
-    private VmapAdRequest vmapAdRequest;
+    private GenericCastBuilder.AdTagType adTagType = GenericCastBuilder.AdTagType.VAST;
     private List<AdBreakClipInfo> vastAdBreakClipInfoList;
     private List<AdBreakInfo> vastAdBreakInfoList;
 
-    public AdsModel(GenericCastBuilder.AdTagType adTagType) {
-        this.adTagType = adTagType;
-    }
 
+    @Override
     public GenericCastBuilder.AdTagType getAdTagType() {
         return adTagType;
     }
 
-    public AdsModel setVmapAdRequest(VmapAdRequest vmapAdRequest) {
-        this.vmapAdRequest = vmapAdRequest;
-        return this;
+    @Override
+    public boolean isAdModelValid() {
+        if (getVastAdBreakClipInfoList() == null || getVastAdBreakInfoList() == null) {
+            return false;
+        }
+        return true;
     }
 
-    public AdsModel setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
+    public VastAdsModel setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
         this.vastAdBreakClipInfoList = vastAdBreakClipInfoList;
         return this;
     }
 
-    public AdsModel setVastAdBreakInfoList(List<AdBreakInfo> vastAdBreakInfoList) {
+    public VastAdsModel setVastAdBreakInfoList(List<AdBreakInfo> vastAdBreakInfoList) {
         this.vastAdBreakInfoList = vastAdBreakInfoList;
         return this;
-    }
-
-    public VmapAdRequest getVmapAdRequest() {
-        return vmapAdRequest;
     }
 
     public List<AdBreakClipInfo> getVastAdBreakClipInfoList() {

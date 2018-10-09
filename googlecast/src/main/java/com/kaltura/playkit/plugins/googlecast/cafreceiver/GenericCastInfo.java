@@ -18,6 +18,9 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.AdsModel;
+import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdsModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -212,8 +215,8 @@ class GenericCastInfo {
             }
 
             if(getAdsModel() != null && getAdsModel().getAdTagType() == GenericCastBuilder.AdTagType.VMAP) {
-                if (getAdsModel().getVmapAdRequest() != null) {
-                    JSONObject vmapAdRequestJson = getAdsModel().getVmapAdRequest().toJSONObject();
+                if (((VmapAdsModel)getAdsModel()).getVmapAdRequest() != null) {
+                    JSONObject vmapAdRequestJson = ((VmapAdsModel)getAdsModel()).getVmapAdRequest().toJSONObject();
                     if (vmapAdRequestJson != null) {
                         customData.put("vmapAdsRequest", vmapAdRequestJson);
                     }
