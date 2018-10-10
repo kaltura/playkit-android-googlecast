@@ -28,6 +28,8 @@ import java.util.List;
 
 public class MediaInfoUtils {
 
+    public static final int LIVE_EDGE = -1000;
+
     public static MediaInfo buildOVPMediaInfo(String entryId,
                                               String ks,
                                               boolean isLiveMedia,
