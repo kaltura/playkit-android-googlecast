@@ -10,17 +10,17 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
 
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.GenericCastBuilder;
+import com.kaltura.playkit.plugins.googlecast.caf.CAFCastBuilder;
 
 public class VmapAdsModel implements AdsModel {
 
-    private GenericCastBuilder.AdTagType adTagType = GenericCastBuilder.AdTagType.VMAP;
+    private CAFCastBuilder.AdTagType adTagType = CAFCastBuilder.AdTagType.VMAP;
     private VmapAdRequest vmapAdRequest;
 
     @Override
-    public GenericCastBuilder.AdTagType getAdTagType() {
+    public CAFCastBuilder.AdTagType getAdTagType() {
         return adTagType;
     }
 

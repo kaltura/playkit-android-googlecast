@@ -10,23 +10,23 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
 
 import com.google.android.gms.cast.AdBreakClipInfo;
 import com.google.android.gms.cast.AdBreakInfo;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.GenericCastBuilder;
+import com.kaltura.playkit.plugins.googlecast.caf.CAFCastBuilder;
 
 import java.util.List;
 
 public class VastAdsModel implements AdsModel {
 
-    private GenericCastBuilder.AdTagType adTagType = GenericCastBuilder.AdTagType.VAST;
+    private CAFCastBuilder.AdTagType adTagType = CAFCastBuilder.AdTagType.VAST;
     private List<AdBreakClipInfo> vastAdBreakClipInfoList;
     private List<AdBreakInfo> vastAdBreakInfoList;
 
 
     @Override
-    public GenericCastBuilder.AdTagType getAdTagType() {
+    public CAFCastBuilder.AdTagType getAdTagType() {
         return adTagType;
     }
 

@@ -10,12 +10,12 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
 
 
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.GenericCastBuilder;
+import com.kaltura.playkit.plugins.googlecast.caf.CAFCastBuilder;
 
 public interface AdsModel {
-    GenericCastBuilder.AdTagType getAdTagType();
+    CAFCastBuilder.AdTagType getAdTagType();
     boolean isAdModelValid();
 }

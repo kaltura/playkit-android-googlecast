@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver;
+package com.kaltura.playkit.plugins.googlecast.caf;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -18,16 +18,15 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.AdsModel;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VastAdsModel;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VastAdsModel;
 
 import org.json.JSONObject;
 import java.util.List;
 
-public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
+public abstract class CAFCastBuilder<T extends CAFCastBuilder> {
 
-    private static final String TAG = GenericCastBuilder.class.getSimpleName();
+    private static final String TAG = CAFCastBuilder.class.getSimpleName();
 
     public enum StreamType {
         VOD,
@@ -90,12 +89,10 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
     }
 
     private static final String CONTENT_ID = "CONTENT_ID";
-    GenericCastInfo castInfo;
+    KalturaCastInfo castInfo;
 
 
-    public GenericCastBuilder() {
-        castInfo = new GenericCastInfo();
-    }
+    public CAFCastBuilder() { }
 
     public T setAdsModel(AdsModel adsModel) {
         castInfo.setAdsModel(adsModel);
@@ -132,39 +129,39 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         return (T) this;
     }
 
-    public T setFileIds(String fileIds) {
-        castInfo.setFileIds(fileIds);
-        return (T) this;
-    }
-
-    public T setFormats(List<String> formats) {
-        castInfo.setFormats(formats);
-        return (T) this;
-    }
-
-    public T setMediaType(KalturaAssetType kalturaAssetType) {
-        castInfo.setMediaType(kalturaAssetType);
-        return (T) this;
-    }
-
-    public T setContextType(PlaybackContextType playbackContextType) {
-        castInfo.setContextType(playbackContextType);
-        return (T) this;    }
-
-    public T setProtocol(HttpProtocol protocol) {
-        castInfo.setProtocol(protocol);
-        return (T) this;    }
-
-    public T setAssetReferenceType(AssetReferenceType assetReferenceType) {
-        castInfo.setAssetReferenceType(assetReferenceType);
-        return (T) this;
-    }
+//    public T setFileIds(String fileIds) {
+//        castInfo.setFileIds(fileIds);
+//        return (T) this;
+//    }
+//
+//    public T setFormats(List<String> formats) {
+//        castInfo.setFormats(formats);
+//        return (T) this;
+//    }
+//
+//    public T setMediaType(KalturaAssetType kalturaAssetType) {
+//        castInfo.setMediaType(kalturaAssetType);
+//        return (T) this;
+//    }
+//
+//    public T setContextType(PlaybackContextType playbackContextType) {
+//        castInfo.setContextType(playbackContextType);
+//        return (T) this;    }
+//
+//    public T setProtocol(HttpProtocol protocol) {
+//        castInfo.setProtocol(protocol);
+//        return (T) this;    }
+//
+//    public T setAssetReferenceType(AssetReferenceType assetReferenceType) {
+//        castInfo.setAssetReferenceType(assetReferenceType);
+//        return (T) this;
+//    }
 
     public MediaInfo build() {
         return getMediaInfo(castInfo);
     }
 
-    private MediaInfo getMediaInfo(GenericCastInfo castInfo) {
+    private MediaInfo getMediaInfo(KalturaCastInfo castInfo) {
 
         validate(castInfo);
 
@@ -184,7 +181,7 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
     /*
     This method sets data that isn't mandatory, and the developer may not provide
      */
-    private void setOptionalData(MediaInfo.Builder mediaInfoBuilder, GenericCastInfo castInfo) {
+    private void setOptionalData(MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
 
         MediaMetadata mediaMetadata = castInfo.getMediaMetadata();
         if (mediaMetadata != null) {
@@ -203,9 +200,9 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         }
     }
 
-    private void setStreamType(MediaInfo.Builder mediaInfoBuilder, GenericCastInfo castInfo) {
+    private void setStreamType(MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
 
-        GenericCastBuilder.StreamType streamType = castInfo.getStreamType();
+        CAFCastBuilder.StreamType streamType = castInfo.getStreamType();
         if (streamType == null) {
             return;
         }
@@ -229,7 +226,7 @@ public abstract class GenericCastBuilder<T extends GenericCastBuilder> {
         mediaInfoBuilder.setStreamType(castStreamType);
     }
 
-    protected void validate(GenericCastInfo castInfo) throws IllegalArgumentException {
+    protected void validate(KalturaCastInfo castInfo) throws IllegalArgumentException {
 
         if (TextUtils.isEmpty(castInfo.getMediaEntryId())) {
             throw new IllegalArgumentException();

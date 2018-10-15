@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;

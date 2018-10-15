@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.cafreceiver;
+package com.kaltura.playkit.plugins.googlecast.caf;
 
 import com.google.android.gms.cast.AdBreakClipInfo;
 import com.google.android.gms.cast.AdBreakInfo;
@@ -18,10 +18,10 @@ import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.google.android.gms.cast.VastAdsRequest;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.AdsModel;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VastAdsModel;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdRequest;
-import com.kaltura.playkit.plugins.googlecast.cafreceiver.adsmodel.VmapAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VastAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdRequest;
+import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +38,10 @@ public class MediaInfoUtils {
                                               TextTrackStyle textTrackStyle,
                                               MediaMetadata mediaMetadata,
                                               AdsModel adsModel) {
-        MediaInfo mediaInfo = new CAFCastBuilder()
+        MediaInfo mediaInfo = new KalturaCastBuilder()
                 .setMediaEntryId(entryId)
                 .setKs(ks)
-                .setStreamType(isLiveMedia ? GenericCastBuilder.StreamType.LIVE : GenericCastBuilder.StreamType.VOD)
+                .setStreamType(isLiveMedia ? CAFCastBuilder.StreamType.LIVE : CAFCastBuilder.StreamType.VOD)
                 .setDefaultTextLangaugeCode(defaultTextLang)
                 .setDefaultAudioLangaugeCode(defaultAudioLang)
                 .setTextTrackStyle(textTrackStyle)
@@ -54,18 +54,18 @@ public class MediaInfoUtils {
     public static MediaInfo buildOTTMediaInfo(String entryId,
                                               String ks,
                                               boolean isLiveMedia,
-                                              GenericCastBuilder.KalturaAssetType mediaType,
-                                              GenericCastBuilder.AssetReferenceType assetReferenceType,
-                                              GenericCastBuilder.PlaybackContextType playbackContextType,
+                                              CAFCastBuilder.KalturaAssetType mediaType,
+                                              CAFCastBuilder.AssetReferenceType assetReferenceType,
+                                              CAFCastBuilder.PlaybackContextType playbackContextType,
                                               List<String> formats,
                                               String fileIds,
-                                              GenericCastBuilder.HttpProtocol protocol,
+                                              CAFCastBuilder.HttpProtocol protocol,
                                               String defaultTextLang,
                                               String defaultAudioLang,
                                               TextTrackStyle textTrackStyle,
                                               MediaMetadata mediaMetadata,
                                               AdsModel adsModel) {
-        MediaInfo mediaInfo = new CAFCastBuilder()
+        MediaInfo mediaInfo = new KalturaCastBuilder()
                 .setMediaEntryId(entryId)
                 .setKs(ks)
                 .setMediaType(mediaType)
@@ -74,7 +74,7 @@ public class MediaInfoUtils {
                 .setFormats(formats)
                 .setFileIds(fileIds)
                 .setProtocol(protocol)
-                .setStreamType(isLiveMedia ? GenericCastBuilder.StreamType.LIVE : GenericCastBuilder.StreamType.VOD)
+                .setStreamType(isLiveMedia ? CAFCastBuilder.StreamType.LIVE : CAFCastBuilder.StreamType.VOD)
                 .setDefaultTextLangaugeCode(defaultTextLang)
                 .setDefaultAudioLangaugeCode(defaultAudioLang)
                 .setTextTrackStyle(textTrackStyle)
