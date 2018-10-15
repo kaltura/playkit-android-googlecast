@@ -24,7 +24,7 @@ import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VastAdsModel;
 import org.json.JSONObject;
 import java.util.List;
 
-public abstract class CAFCastBuilder<T extends CAFCastBuilder> {
+public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
     private static final String TAG = CAFCastBuilder.class.getSimpleName();
 
@@ -92,10 +92,17 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder> {
     KalturaCastInfo castInfo;
 
 
-    public CAFCastBuilder() { }
+    public CAFCastBuilder() {
+        castInfo = new KalturaCastInfo();
+    }
 
     public T setAdsModel(AdsModel adsModel) {
         castInfo.setAdsModel(adsModel);
+        return (T) this;
+    }
+
+    public T setKs(String ks) {
+        castInfo.setKs(ks);
         return (T) this;
     }
 
@@ -128,34 +135,6 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder> {
         castInfo.setStreamType(streamType);
         return (T) this;
     }
-
-//    public T setFileIds(String fileIds) {
-//        castInfo.setFileIds(fileIds);
-//        return (T) this;
-//    }
-//
-//    public T setFormats(List<String> formats) {
-//        castInfo.setFormats(formats);
-//        return (T) this;
-//    }
-//
-//    public T setMediaType(KalturaAssetType kalturaAssetType) {
-//        castInfo.setMediaType(kalturaAssetType);
-//        return (T) this;
-//    }
-//
-//    public T setContextType(PlaybackContextType playbackContextType) {
-//        castInfo.setContextType(playbackContextType);
-//        return (T) this;    }
-//
-//    public T setProtocol(HttpProtocol protocol) {
-//        castInfo.setProtocol(protocol);
-//        return (T) this;    }
-//
-//    public T setAssetReferenceType(AssetReferenceType assetReferenceType) {
-//        castInfo.setAssetReferenceType(assetReferenceType);
-//        return (T) this;
-//    }
 
     public MediaInfo build() {
         return getMediaInfo(castInfo);

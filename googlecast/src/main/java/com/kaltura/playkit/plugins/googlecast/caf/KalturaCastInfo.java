@@ -21,8 +21,12 @@ import com.google.android.gms.cast.TextTrackStyle;
 import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
 import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdsModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+
 
 class KalturaCastInfo {
     public static final String ENTRY_ID = "entryId";
@@ -32,6 +36,14 @@ class KalturaCastInfo {
     public static final String AUDIO_LANGUAGE = "audioLanguage";
     public static final String VMAP_ADS_REQUEST = "vmapAdsRequest";
 
+    //Phoenix
+    public static final String MEDIA_TYPE = "mediaType";
+    public static final String ASSET_REFERENCE_TYPE = "assetReferenceType";
+    public static final String CONTEXT_TYPE = "contextType";
+    public static final String PROTOCOL = "protocol";
+    public static final String FILE_IDS = "fileIds";
+    public static final String FORMATS = "formats";
+
     private String mediaEntryId;
     private String ks;                     // optional
     private String textLanguage;           // optional
@@ -40,6 +52,15 @@ class KalturaCastInfo {
     private TextTrackStyle textTrackStyle; // optional
     private CAFCastBuilder.StreamType streamType; // optional
     private AdsModel adsModel; // optional
+
+    //Phoenix
+    private CAFCastBuilder.KalturaAssetType mediaType;
+    private CAFCastBuilder.AssetReferenceType assetReferenceType;
+    private CAFCastBuilder.PlaybackContextType contextType;
+    private CAFCastBuilder.HttpProtocol protocol;
+    private String fileIds; // 'FILE_ID1,FILE_ID2'
+    private List<String> formats; //['Device_Format_1', 'Device_Format_2', 'Device_Format_3']
+
 
     public KalturaCastInfo() {}
 
@@ -115,6 +136,59 @@ class KalturaCastInfo {
         return this;
     }
 
+    public String getFileIds() {
+        return fileIds;
+    }
+
+    public KalturaCastInfo setFileIds(String fileIds) {
+        this.fileIds = fileIds;
+        return this;
+    }
+
+    public List<String> getFormats() {
+        return formats;
+    }
+
+    public KalturaCastInfo setFormats(List<String> formats) {
+        this.formats = formats;
+        return this;
+    }
+
+    public CAFCastBuilder.KalturaAssetType getMediaType() {
+        return mediaType;
+    }
+
+    public KalturaCastInfo setMediaType(CAFCastBuilder.KalturaAssetType kalturaAssetType) {
+        this.mediaType = kalturaAssetType;
+        return this;
+    }
+
+    public CAFCastBuilder.PlaybackContextType getContextType() {
+        return contextType;
+    }
+
+    public KalturaCastInfo setContextType(CAFCastBuilder.PlaybackContextType playbackContextType) {
+        this.contextType = playbackContextType;
+        return this;
+    }
+
+    public CAFCastBuilder.AssetReferenceType getAssetReferenceType() {
+        return assetReferenceType;
+    }
+
+    public KalturaCastInfo setAssetReferenceType(CAFCastBuilder.AssetReferenceType assetReferenceType) {
+        this.assetReferenceType = assetReferenceType;
+        return this;
+    }
+    public CAFCastBuilder.HttpProtocol getProtocol() {
+        return protocol;
+    }
+
+    public KalturaCastInfo setProtocol(CAFCastBuilder.HttpProtocol protocol) {
+        this.protocol = protocol;
+        return this;
+    }
+
     public JSONObject getCustomData() {
         JSONObject customData = new JSONObject();
         try {
@@ -124,6 +198,28 @@ class KalturaCastInfo {
                 mediaData.put(KS, getKs());
             }
 
+            if (getMediaType() != null) {
+                mediaData.put(MEDIA_TYPE, getMediaType().value);
+            }
+            if (getAssetReferenceType() != null) {
+                mediaData.put(ASSET_REFERENCE_TYPE, getAssetReferenceType().value);
+            }
+            if (getContextType() != null) {
+                mediaData.put(CONTEXT_TYPE, getContextType().value);
+            }
+            if (getProtocol() != null) {
+                mediaData.put(PROTOCOL, getProtocol().value);
+            }
+            if (!TextUtils.isEmpty(getFileIds())) {
+                mediaData.put(FILE_IDS, getFileIds());
+            }
+            if (getFormats() != null) {
+                JSONArray formatsArray = new JSONArray();
+                for (String format : getFormats()) {
+                    formatsArray.put(format);
+                }
+                mediaData.put(FORMATS, formatsArray);
+            }
             customData.put(MEDIA_INFO, mediaData);
             if (!TextUtils.isEmpty(getTextLanguage())) {
                 customData.put(TEXT_LANGUAGE, getTextLanguage());
