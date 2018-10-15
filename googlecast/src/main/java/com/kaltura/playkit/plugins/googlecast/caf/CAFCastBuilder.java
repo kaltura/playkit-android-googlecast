@@ -205,7 +205,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         mediaInfoBuilder.setStreamType(castStreamType);
     }
 
-    protected void validate(KalturaCastInfo castInfo) throws IllegalArgumentException {
+    private void validate(KalturaCastInfo castInfo) throws IllegalArgumentException {
 
         if (TextUtils.isEmpty(castInfo.getMediaEntryId())) {
             throw new IllegalArgumentException();
