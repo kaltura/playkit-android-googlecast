@@ -66,15 +66,15 @@ public class MediaInfoUtils {
                                               MediaMetadata mediaMetadata,
                                               AdsModel adsModel) {
         MediaInfo mediaInfo = new KalturaPhoenixCastBuilder()
+                .setMediaEntryId(entryId)
                 .setKs(ks)
+                .setStreamType(isLiveMedia ? CAFCastBuilder.StreamType.LIVE : CAFCastBuilder.StreamType.VOD)
                 .setMediaType(mediaType)
                 .setAssetReferenceType(assetReferenceType)
                 .setContextType(playbackContextType)
                 .setFormats(formats)
                 .setFileIds(fileIds)
                 .setProtocol(protocol)
-                .setMediaEntryId(entryId)
-                .setStreamType(isLiveMedia ? CAFCastBuilder.StreamType.LIVE : CAFCastBuilder.StreamType.VOD)
                 .setDefaultTextLangaugeCode(defaultTextLang)
                 .setDefaultAudioLangaugeCode(defaultAudioLang)
                 .setTextTrackStyle(textTrackStyle)
