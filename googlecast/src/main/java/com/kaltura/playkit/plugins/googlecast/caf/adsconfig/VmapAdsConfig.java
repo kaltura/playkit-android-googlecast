@@ -10,11 +10,11 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsconfig;
 
 import com.kaltura.playkit.plugins.googlecast.caf.CAFCastBuilder;
 
-public class VmapAdsModel implements AdsModel {
+public class VmapAdsConfig implements AdsConfig {
 
     private CAFCastBuilder.AdTagType adTagType = CAFCastBuilder.AdTagType.VMAP;
     private VmapAdRequest vmapAdRequest;
@@ -25,14 +25,14 @@ public class VmapAdsModel implements AdsModel {
     }
 
     @Override
-    public boolean isAdModelValid() {
+    public boolean isAdsConfigValid() {
         if (getVmapAdRequest() == null || getVmapAdRequest().toJSONObject() == null) {
            return false;
         }
         return true;
     }
 
-    public VmapAdsModel setVmapAdRequest(VmapAdRequest vmapAdRequest) {
+    public VmapAdsConfig setVmapAdRequest(VmapAdRequest vmapAdRequest) {
         this.vmapAdRequest = vmapAdRequest;
         return this;
     }

@@ -18,11 +18,10 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VastAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
 
 import org.json.JSONObject;
-import java.util.List;
 
 public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
@@ -96,8 +95,8 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         castInfo = new KalturaCastInfo();
     }
 
-    public T setAdsModel(AdsModel adsModel) {
-        castInfo.setAdsModel(adsModel);
+    public T setAdsConfig(AdsConfig adsConfig) {
+        castInfo.setAdsConfig(adsConfig);
         return (T) this;
     }
 
@@ -172,10 +171,10 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
             mediaInfoBuilder.setTextTrackStyle(textTrackStyle);
         }
 
-        AdsModel adsModel = castInfo.getAdsModel();
-        if (adsModel != null && adsModel.getAdTagType() == AdTagType.VAST) {
-            mediaInfoBuilder.setAdBreakClips(((VastAdsModel)adsModel).getVastAdBreakClipInfoList());
-            mediaInfoBuilder.setAdBreaks(((VastAdsModel)adsModel).getVastAdBreakInfoList());
+        AdsConfig adsConfig = castInfo.getAdsConfig();
+        if (adsConfig != null && adsConfig.getAdTagType() == AdTagType.VAST) {
+            mediaInfoBuilder.setAdBreakClips(((VastAdsConfig) adsConfig).getVastAdBreakClipInfoList());
+            mediaInfoBuilder.setAdBreaks(((VastAdsConfig) adsConfig).getVastAdBreakInfoList());
         }
     }
 
@@ -212,8 +211,8 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
 
         // adTagUrl isn't mandatory, but if you set adTagUrl it must be valid
-        AdsModel adsModel = castInfo.getAdsModel();
-        if (adsModel != null && !adsModel.isAdModelValid()) {
+        AdsConfig adsConfig = castInfo.getAdsConfig();
+        if (adsConfig != null && !adsConfig.isAdsConfigValid()) {
             throw new IllegalArgumentException();
         }
 

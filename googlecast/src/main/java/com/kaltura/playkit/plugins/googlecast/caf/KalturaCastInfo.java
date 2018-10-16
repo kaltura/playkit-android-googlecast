@@ -18,8 +18,8 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +51,7 @@ class KalturaCastInfo {
     private MediaMetadata mediaMetadata;   // optional
     private TextTrackStyle textTrackStyle; // optional
     private CAFCastBuilder.StreamType streamType; // optional
-    private AdsModel adsModel; // optional
+    private AdsConfig adsConfig; // optional
 
     //Phoenix
     private CAFCastBuilder.KalturaAssetType mediaType;
@@ -127,12 +127,12 @@ class KalturaCastInfo {
         return this;
     }
 
-    public AdsModel getAdsModel() {
-        return adsModel;
+    public AdsConfig getAdsConfig() {
+        return adsConfig;
     }
 
-    public KalturaCastInfo setAdsModel(AdsModel adsModel) {
-        this.adsModel = adsModel;
+    public KalturaCastInfo setAdsConfig(AdsConfig adsConfig) {
+        this.adsConfig = adsConfig;
         return this;
     }
 
@@ -228,9 +228,9 @@ class KalturaCastInfo {
                 customData.put(AUDIO_LANGUAGE, getAudioLanguage());
             }
 
-            if(getAdsModel() != null && getAdsModel().getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
-                if (((VmapAdsModel)getAdsModel()).getVmapAdRequest() != null) {
-                    JSONObject vmapAdRequestJson = ((VmapAdsModel)getAdsModel()).getVmapAdRequest().toJSONObject();
+            if(getAdsConfig() != null && getAdsConfig().getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
+                if (((VmapAdsConfig) getAdsConfig()).getVmapAdRequest() != null) {
+                    JSONObject vmapAdRequestJson = ((VmapAdsConfig) getAdsConfig()).getVmapAdRequest().toJSONObject();
                     if (vmapAdRequestJson != null) {
                         customData.put(VMAP_ADS_REQUEST, vmapAdRequestJson);
                     }

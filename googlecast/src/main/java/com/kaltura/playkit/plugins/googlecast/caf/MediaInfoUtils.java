@@ -18,10 +18,10 @@ import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.google.android.gms.cast.VastAdsRequest;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.AdsModel;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VastAdsModel;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdRequest;
-import com.kaltura.playkit.plugins.googlecast.caf.adsmodel.VmapAdsModel;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdRequest;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class MediaInfoUtils {
                                               String defaultAudioLang,
                                               TextTrackStyle textTrackStyle,
                                               MediaMetadata mediaMetadata,
-                                              AdsModel adsModel) {
+                                              AdsConfig adsConfig) {
         MediaInfo mediaInfo = new KalturaCastBuilder()
                 .setMediaEntryId(entryId)
                 .setKs(ks)
@@ -46,7 +46,7 @@ public class MediaInfoUtils {
                 .setDefaultAudioLangaugeCode(defaultAudioLang)
                 .setTextTrackStyle(textTrackStyle)
                 .setMetadata(mediaMetadata)
-                .setAdsModel(adsModel)
+                .setAdsConfig(adsConfig)
                 .build();
         return mediaInfo;
     }
@@ -64,7 +64,7 @@ public class MediaInfoUtils {
                                               String defaultAudioLang,
                                               TextTrackStyle textTrackStyle,
                                               MediaMetadata mediaMetadata,
-                                              AdsModel adsModel) {
+                                              AdsConfig adsConfig) {
         MediaInfo mediaInfo = new KalturaPhoenixCastBuilder()
                 .setMediaEntryId(entryId)
                 .setKs(ks)
@@ -79,12 +79,12 @@ public class MediaInfoUtils {
                 .setDefaultAudioLangaugeCode(defaultAudioLang)
                 .setTextTrackStyle(textTrackStyle)
                 .setMetadata(mediaMetadata)
-                .setAdsModel(adsModel)
+                .setAdsConfig(adsConfig)
                 .build();
         return mediaInfo;
     }
 
-    public static AdsModel createAdsModelVastInPosition(long playbackPositionInMs, String adTagUrl) {
+    public static AdsConfig createAdsConfigVastInPosition(long playbackPositionInMs, String adTagUrl) {
         List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
         VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdTagUrl(adTagUrl).build();
         AdBreakClipInfo clipInfo1 = new AdBreakClipInfo.Builder("100").setVastAdsRequest(vastRequest).build();
@@ -95,14 +95,14 @@ public class MediaInfoUtils {
         AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(playbackPositionInMs).setBreakClipIds(breakClipIds).setId("101").build();
         adBreakInfoList.add(adBreakInfo1);
 
-        AdsModel adsModel = new VastAdsModel().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
-        return adsModel;
+        AdsConfig adsConfig = new VastAdsConfig().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
+        return adsConfig;
     }
 
-    public static AdsModel createAdsModelVmap(String adTagUrl) {
-        AdsModel adsModel = new VmapAdsModel()
+    public static AdsConfig createAdsConfigVmap(String adTagUrl) {
+        AdsConfig adsConfig = new VmapAdsConfig()
                 .setVmapAdRequest(new VmapAdRequest()
                 .setAdTagUrl(adTagUrl));
-        return adsModel;
+        return adsConfig;
     }
 }

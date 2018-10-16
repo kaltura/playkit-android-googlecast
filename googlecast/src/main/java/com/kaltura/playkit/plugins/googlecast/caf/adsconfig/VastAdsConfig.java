@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package com.kaltura.playkit.plugins.googlecast.caf.adsmodel;
+package com.kaltura.playkit.plugins.googlecast.caf.adsconfig;
 
 import com.google.android.gms.cast.AdBreakClipInfo;
 import com.google.android.gms.cast.AdBreakInfo;
@@ -18,7 +18,7 @@ import com.kaltura.playkit.plugins.googlecast.caf.CAFCastBuilder;
 
 import java.util.List;
 
-public class VastAdsModel implements AdsModel {
+public class VastAdsConfig implements AdsConfig {
 
     private CAFCastBuilder.AdTagType adTagType = CAFCastBuilder.AdTagType.VAST;
     private List<AdBreakClipInfo> vastAdBreakClipInfoList;
@@ -31,19 +31,19 @@ public class VastAdsModel implements AdsModel {
     }
 
     @Override
-    public boolean isAdModelValid() {
+    public boolean isAdsConfigValid() {
         if (getVastAdBreakClipInfoList() == null || getVastAdBreakInfoList() == null) {
             return false;
         }
         return true;
     }
 
-    public VastAdsModel setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
+    public VastAdsConfig setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
         this.vastAdBreakClipInfoList = vastAdBreakClipInfoList;
         return this;
     }
 
-    public VastAdsModel setVastAdBreakInfoList(List<AdBreakInfo> vastAdBreakInfoList) {
+    public VastAdsConfig setVastAdBreakInfoList(List<AdBreakInfo> vastAdBreakInfoList) {
         this.vastAdBreakInfoList = vastAdBreakInfoList;
         return this;
     }
