@@ -15,6 +15,8 @@ package com.kaltura.playkit.plugins.googlecast.caf.adsconfig;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.android.gms.cast.VastAdsRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,20 +35,34 @@ public class VmapAdRequest {
         return this;
     }
 
-    public JSONObject toJSONObject() {
-        JSONObject vmapAdsRequest = new JSONObject();
-        try {
-            if (!TextUtils.isEmpty(adTagUrl)) {
-                vmapAdsRequest.put("adTagUrl", adTagUrl);
-            } else if (!TextUtils.isEmpty(adsResponse)) {
-                vmapAdsRequest.put("adsResponse", adsResponse);
-            } else {
-                return null;
-            }
-        } catch(JSONException e){
+//    public JSONObject toJSONObject() {
+//        JSONObject vmapAdsRequest = new JSONObject();
+//        try {
+//            if (!TextUtils.isEmpty(adTagUrl)) {
+//                vmapAdsRequest.put("adTagUrl", adTagUrl);
+//            } else if (!TextUtils.isEmpty(adsResponse)) {
+//                vmapAdsRequest.put("adsResponse", adsResponse);
+//            } else {
+//                return null;
+//            }
+//        } catch(JSONException e){
+//            return null;
+//        }
+//
+//        return vmapAdsRequest;
+//    }
+
+    public VastAdsRequest getVastAdsRequestForAdTag() {
+        if (adTagUrl == null) {
             return null;
         }
+        return new VastAdsRequest.Builder().setAdTagUrl(adTagUrl).build();
+    }
 
-        return vmapAdsRequest;
+    public VastAdsRequest getVastAdRequestForAdResponse() {
+        if (adsResponse == null) {
+            return null;
+        }
+        return new VastAdsRequest.Builder().setAdsResponse(adsResponse).build();
     }
 }

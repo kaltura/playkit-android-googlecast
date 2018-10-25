@@ -18,8 +18,10 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
+import com.google.android.gms.cast.VastAdsRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 
 import org.json.JSONObject;
 
@@ -172,9 +174,21 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
 
         AdsConfig adsConfig = castInfo.getAdsConfig();
-        if (adsConfig != null && adsConfig.getAdTagType() == AdTagType.VAST) {
-            mediaInfoBuilder.setAdBreakClips(((VastAdsConfig) adsConfig).getVastAdBreakClipInfoList());
-            mediaInfoBuilder.setAdBreaks(((VastAdsConfig) adsConfig).getVastAdBreakInfoList());
+        if (adsConfig != null) {
+            if (adsConfig.getAdTagType() == AdTagType.VAST) {
+                mediaInfoBuilder.setAdBreakClips(((VastAdsConfig) adsConfig).getVastAdBreakClipInfoList());
+                mediaInfoBuilder.setAdBreaks(((VastAdsConfig) adsConfig).getVastAdBreakInfoList());
+            }else if (adsConfig.getAdTagType() == AdTagType.VMAP) {
+                VastAdsRequest vastAdsRequest = null;
+                if (((VmapAdsConfig)adsConfig).getVmapAdRequest().getVastAdsRequestForAdTag() != null) {
+                    vastAdsRequest = ((VmapAdsConfig)adsConfig).getVmapAdRequest().getVastAdsRequestForAdTag();
+                } else if (((VmapAdsConfig)adsConfig).getVmapAdRequest().getVastAdRequestForAdResponse() != null) {
+                    vastAdsRequest = ((VmapAdsConfig)adsConfig).getVmapAdRequest().getVastAdRequestForAdResponse();
+                }
+                if (vastAdsRequest != null) {
+                    mediaInfoBuilder.setVmapAdsRequest(vastAdsRequest);
+                }
+            }
         }
     }
 
