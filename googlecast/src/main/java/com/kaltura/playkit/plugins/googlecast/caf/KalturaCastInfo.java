@@ -227,16 +227,6 @@ class KalturaCastInfo {
             if (!TextUtils.isEmpty(getAudioLanguage())) {
                 customData.put(AUDIO_LANGUAGE, getAudioLanguage());
             }
-
-            //VMAP VIA RECIVER
-//            if(getAdsConfig() != null && getAdsConfig().getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
-//                if (((VmapAdsConfig) getAdsConfig()).getVmapAdRequest() != null) {
-//                    JSONObject vmapAdRequestJson = ((VmapAdsConfig) getAdsConfig()).getVmapAdRequest().toJSONObject();
-//                    if (vmapAdRequestJson != null) {
-//                        customData.put(VMAP_ADS_REQUEST, vmapAdRequestJson);
-//                    }
-//                }
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

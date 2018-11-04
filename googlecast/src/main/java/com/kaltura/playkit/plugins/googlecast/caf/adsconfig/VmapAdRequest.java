@@ -35,23 +35,6 @@ public class VmapAdRequest {
         return this;
     }
 
-//    public JSONObject toJSONObject() {
-//        JSONObject vmapAdsRequest = new JSONObject();
-//        try {
-//            if (!TextUtils.isEmpty(adTagUrl)) {
-//                vmapAdsRequest.put("adTagUrl", adTagUrl);
-//            } else if (!TextUtils.isEmpty(adsResponse)) {
-//                vmapAdsRequest.put("adsResponse", adsResponse);
-//            } else {
-//                return null;
-//            }
-//        } catch(JSONException e){
-//            return null;
-//        }
-//
-//        return vmapAdsRequest;
-//    }
-
     public VastAdsRequest getVastAdsRequestForAdTag() {
         if (adTagUrl == null) {
             return null;
