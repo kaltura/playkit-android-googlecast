@@ -32,7 +32,7 @@ dependencies {
 
     // Google Cast
 
-    api 'com.google.android.gms:play-services-cast-framework:16.0.1', {
+    api 'com.google.android.gms:play-services-cast-framework:16.1.0', {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 //    api 'com.google.android.gms:play-services-cast-framework:16.0.2', {

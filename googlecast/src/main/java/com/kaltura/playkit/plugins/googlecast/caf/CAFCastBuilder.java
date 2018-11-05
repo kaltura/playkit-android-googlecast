@@ -19,7 +19,10 @@ import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.google.android.gms.cast.VastAdsRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdRequest;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 
 import org.json.JSONObject;
 
@@ -172,9 +175,28 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
 
         AdsConfig adsConfig = castInfo.getAdsConfig();
-        if (adsConfig != null && adsConfig.getAdTagType() == AdTagType.VAST) {
-            mediaInfoBuilder.setAdBreakClips(((VastAdsConfig) adsConfig).getVastAdBreakClipInfoList());
-            mediaInfoBuilder.setAdBreaks(((VastAdsConfig) adsConfig).getVastAdBreakInfoList());
+        if (adsConfig != null) {
+            if (adsConfig.getAdTagType() == AdTagType.VAST) {
+                VastAdsConfig vastAdsConfig = (VastAdsConfig) adsConfig;
+                if (vastAdsConfig.getVastAdBreakClipInfoList() != null && vastAdsConfig.getVastAdBreakInfoList() != null) {
+                    mediaInfoBuilder.setAdBreakClips(vastAdsConfig.getVastAdBreakClipInfoList());
+                    mediaInfoBuilder.setAdBreaks(vastAdsConfig.getVastAdBreakInfoList());
+                }
+            }else if (adsConfig.getAdTagType() == AdTagType.VMAP) {
+                VastAdsRequest vastAdsRequest = null;
+                VmapAdsConfig vmapAdsConfig = (VmapAdsConfig)adsConfig;
+                if (vmapAdsConfig.getVmapAdRequest() != null) {
+                    VmapAdRequest vmapAdRequest = vmapAdsConfig.getVmapAdRequest();
+                    if (vmapAdRequest.getVastAdsRequestForAdTag() != null) {
+                        vastAdsRequest = vmapAdRequest.getVastAdsRequestForAdTag();
+                    } else if (vmapAdRequest.getVastAdRequestForAdResponse() != null) {
+                        vastAdsRequest = vmapAdRequest.getVastAdRequestForAdResponse();
+                    }
+                    if (vastAdsRequest != null) {
+                        mediaInfoBuilder.setVmapAdsRequest(vastAdsRequest);
+                    }
+                }
+            }
         }
     }
 
