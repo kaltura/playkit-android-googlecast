@@ -26,7 +26,7 @@ public class VmapAdsConfig implements AdsConfig {
 
     @Override
     public boolean isAdsConfigValid() {
-        retuen (getVmapAdRequest() == null || (getVmapAdRequest().getVastAdsRequestForAdTag() == null && getVmapAdRequest().getVastAdRequestForAdResponse() == null));
+        return (getVmapAdRequest() == null || (getVmapAdRequest().getVastAdsRequestForAdTag() == null && getVmapAdRequest().getVastAdRequestForAdResponse() == null));
     }
 
     public VmapAdsConfig setVmapAdRequest(VmapAdRequest vmapAdRequest) {
