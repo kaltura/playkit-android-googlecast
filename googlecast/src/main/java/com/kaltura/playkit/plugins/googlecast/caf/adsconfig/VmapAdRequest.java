@@ -13,12 +13,7 @@
 package com.kaltura.playkit.plugins.googlecast.caf.adsconfig;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-
 import com.google.android.gms.cast.VastAdsRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class VmapAdRequest {
 
