@@ -32,7 +32,7 @@ public class VastAdsConfig implements AdsConfig {
 
     @Override
     public boolean isAdsConfigValid() {
-        return !(getVastAdBreakClipInfoList() == null || getVastAdBreakInfoList() == null);
+        return (getVastAdBreakClipInfoList() != null && getVastAdBreakInfoList() != null);
     }
 
     public VastAdsConfig setVastAdBreakClipInfoList(List<AdBreakClipInfo> vastAdBreakClipInfoList) {
