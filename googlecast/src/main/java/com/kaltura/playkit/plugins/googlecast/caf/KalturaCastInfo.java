@@ -19,7 +19,6 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
-import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
