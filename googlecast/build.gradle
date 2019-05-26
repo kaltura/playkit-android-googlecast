@@ -35,12 +35,9 @@ dependencies {
 
     // Google Cast
 
-    api 'com.google.android.gms:play-services-cast-framework:16.2.0'
-//    api 'com.google.android.gms:play-services-cast-framework:16.0.2', {
-//        exclude group: 'com.android.support', module: 'recyclerview-v7'
-//        exclude group: 'com.android.support', module: 'animated-vector-drawable'
-//        exclude group: 'com.android.support', module: 'support-v4'
-//    }
+    api ('com.google.android.gms:play-services-cast-framework:16.1.0')/*{
+        exclude group: 'com.android.support', module: 'support-v4'
+    }*/
     api 'androidx.mediarouter:mediarouter:1.0.0'
 
     //Gson
