@@ -12,8 +12,6 @@ script:
   - ./gradlew googlecast:build
 after_failure:
   - cat googlecast/build/reports/lint-results.xml
-after_success:
-  - ./travis-push-to-bintray.sh
 notifications:
   email:
     recipients:
