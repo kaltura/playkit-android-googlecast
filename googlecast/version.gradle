@@ -17,11 +17,11 @@ try {
 
     publish {
         artifactId = 'googlecast'
-        description = 'PlayKit Google Cast Addon'
+        desc = 'PlayKit Google Cast Addon'
         repoName = 'android'
         userOrg = 'kaltura'
         groupId = 'com.kaltura.playkit'
-        version = libVersion
+        publishVersion = libVersion
         autoPublish = true
         licences = ['AGPL-3.0']
     }
