@@ -13,6 +13,13 @@ import java.util.List;
 public class PlaybackParams {
 
 
+    public static final String PLUGINS = "plugins";
+    public static final String SOURCES = "sources";
+    public static final String APPLICATION_DASH_XML = "application/dash+xml";
+    public static final String APPLICATION_X_MPEG_URL = "application/x-mpegURL";
+    public static final String VIDEO_MP_4 = "video/mp4";
+    public static final String COM_WIDEVINE_ALPHA = "com.widevine.alpha";
+    
     public String poster;
     public JSONObject options = new JSONObject();
     public List<Hls> hls = null;
@@ -32,8 +39,8 @@ public class PlaybackParams {
         JSONObject playbackParams = new JSONObject();
 
         try {
-            playbackParams.put("plugins", new JSONObject());
-            playbackParams.put("sources", new JSONObject(sourcesJson));
+            playbackParams.put(PLUGINS, new JSONObject());
+            playbackParams.put(SOURCES, new JSONObject(sourcesJson));
         } catch (JSONException e ) {
             e.printStackTrace();
         }
@@ -44,11 +51,11 @@ public class PlaybackParams {
         Dash dashSource =  new Dash();
         dashSource.id = id;
         dashSource.url = url;
-        dashSource.mimetype = "application/dash+xml";
+        dashSource.mimetype = APPLICATION_DASH_XML;
 
         DrmData drmData = new DrmData();
         drmData.licenseUrl = licenseUrl;
-        drmData.scheme = "com.widevine.alpha";
+        drmData.scheme = COM_WIDEVINE_ALPHA;
         dashSource.drmData = Collections.singletonList(drmData);
         this.dash = Collections.singletonList(dashSource);
     }
@@ -57,7 +64,7 @@ public class PlaybackParams {
         Hls hlsSource =  new Hls();
         hlsSource.id = id;
         hlsSource.url = url;
-        hlsSource.mimetype = "application/x-mpegURL";
+        hlsSource.mimetype = APPLICATION_X_MPEG_URL;
         this.hls = Collections.singletonList(hlsSource);
     }
 
@@ -65,7 +72,7 @@ public class PlaybackParams {
         Progressive progressivSource =  new Progressive();
         progressivSource.id = id;
         progressivSource.url = url;
-        progressivSource.mimetype = "video/mp4";
+        progressivSource.mimetype = VIDEO_MP_4;
 
         this.progressive = Collections.singletonList(progressivSource);
     }
