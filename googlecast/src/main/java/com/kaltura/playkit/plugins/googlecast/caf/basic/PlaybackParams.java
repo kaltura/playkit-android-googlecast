@@ -1,133 +1,72 @@
 package com.kaltura.playkit.plugins.googlecast.caf.basic;
 
+import android.graphics.Path;
+
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PlaybackParams {
 
-    private String poster;
-    private Options options;
-    private List<Hls> hls = null;
-    private List<Dash> dash = null;
-    private List<Progressive> progressive = null;
-    private String id;
-    private Integer duration;
 
-    private String type;
-    private Boolean dvr;
-    private Object vr;
-    private Metadata metadata;
-    private List<Caption> captions = null;
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public Options getOptions() {
-        return options;
-    }
-
-    public void setOptions(Options options) {
-        this.options = options;
-    }
-
-    public List<Hls> getHls() {
-        return hls;
-    }
-
-    public void setHls(List<Hls> hls) {
-        this.hls = hls;
-    }
-
-    public List<Dash> getDash() {
-        return dash;
-    }
-
-    public void setDash(List<Dash> dash) {
-        this.dash = dash;
-    }
-
-    public List<Progressive> getProgressive() {
-        return progressive;
-    }
-
-    public void setProgressive(List<Progressive> progressive) {
-        this.progressive = progressive;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Boolean getDvr() {
-        return dvr;
-    }
-
-    public void setDvr(Boolean dvr) {
-        this.dvr = dvr;
-    }
-
-    public Object getVr() {
-        return vr;
-    }
-
-    public void setVr(Object vr) {
-        this.vr = vr;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
-    }
-
-    public List<Caption> getCaptions() {
-        return captions;
-    }
-
-    public void setCaptions(List<Caption> captions) {
-        this.captions = captions;
-    }
+    public String poster;
+    public JSONObject options = new JSONObject();
+    public List<Hls> hls = null;
+    public List<Dash> dash = null;
+    public List<Progressive> progressive = null;
+    public String id;
+    public Integer duration;
+    public String type;
+    public Boolean dvr;
+    public Object vr;
+    public Metadata metadata;
+    public List<Caption> captions = null;
 
     public JSONObject getMediaConfig() {
         Gson gson = new Gson();
-        String mediaConfigStr = gson.toJson(this);
-        JSONObject mediaConfig = new JSONObject();
+        String sourcesJson = gson.toJson(this);
+        JSONObject playbackParams = new JSONObject();
+
         try {
-           mediaConfig.put("mediaConfig", mediaConfig);
+            playbackParams.put("plugins", new JSONObject());
+            playbackParams.put("sources", new JSONObject(sourcesJson));
         } catch (JSONException e ) {
             e.printStackTrace();
         }
-        return mediaConfig;
+        return playbackParams;
+    }
+
+    public void setDashSource(String id, String url, String licenseUrl) {
+        Dash dashSource =  new Dash();
+        dashSource.id = id;
+        dashSource.url = url;
+        dashSource.mimetype = "application/dash+xml";
+
+        DrmData drmData = new DrmData();
+        drmData.licenseUrl = licenseUrl;
+        drmData.scheme = "com.widevine.alpha";
+        dashSource.drmData = Collections.singletonList(drmData);
+        this.dash = Collections.singletonList(dashSource);
+    }
+
+    public void setHlshSource(String id, String url) {
+        Hls hlsSource =  new Hls();
+        hlsSource.id = id;
+        hlsSource.url = url;
+        hlsSource.mimetype = "application/x-mpegURL";
+        this.hls = Collections.singletonList(hlsSource);
+    }
+
+    public void setProgressivehSource(String id, String url) {
+        Progressive progressivSource =  new Progressive();
+        progressivSource.id = id;
+        progressivSource.url = url;
+        progressivSource.mimetype = "video/mp4";
+
+        this.progressive = Collections.singletonList(progressivSource);
     }
 }

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
+import com.google.android.gms.cast.MediaTrack;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.google.android.gms.cast.VastAdsRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
@@ -25,6 +26,9 @@ import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.basic.PlaybackParams;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KalturaBasicCAFCastBuilder {
 
@@ -80,7 +84,25 @@ public class KalturaBasicCAFCastBuilder {
         JSONObject customData = castInfo.getCustomData();
 
         MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
+        List<MediaTrack> mediaTracks = new ArrayList<>();
+        MediaTrack englishSubtitle = new MediaTrack.Builder(1 /* ID */,
+                MediaTrack.TYPE_TEXT)
+                .setName("Eng")
+                .setContentId("https://qa-apache-php7.dev.kaltura.com/api_v3/index.php/service/caption_captionAsset/action/serve/captionAssetId/0_kd5r6b9c/v/2")
+                /* language is required for subtitle type but optional otherwise */
+                .setLanguage("en")
+                .build();
 
+        MediaTrack frenchSubtitle = new MediaTrack.Builder(2, MediaTrack.TYPE_TEXT)
+                .setName("FR")
+                .setContentId("https://qa-apache-php7.dev.kaltura.com/api_v3/index.php/service/caption_captionAsset/action/serve/captionAssetId/0_y5h9dvc1/v/2")
+                .setLanguage("fr")
+                .build();
+
+
+        mediaTracks.add(englishSubtitle);
+        mediaTracks.add(frenchSubtitle);
+        mediaInfoBuilder.setMediaTracks(mediaTracks);
         setStreamType(mediaInfoBuilder, castInfo);
         setOptionalData(mediaInfoBuilder, castInfo);
 

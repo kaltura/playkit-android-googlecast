@@ -1,31 +1,7 @@
 package com.kaltura.playkit.plugins.googlecast.caf.basic;
 
 public class BaseMediaParams {
-    protected String id;
-    protected String url;
-    protected String mimetype;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getMimetype() {
-        return mimetype;
-    }
-
-    public void setMimetype(String mimetype) {
-        this.mimetype = mimetype;
-    }
+    public String id;
+    public String url;
+    public String mimetype;
 }
