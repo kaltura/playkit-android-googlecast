@@ -1,8 +1,13 @@
 package com.kaltura.playkit.plugins.googlecast.caf.basic;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
-public class BasicCastInfo {
+public class PlaybackParams {
 
     private String poster;
     private Options options;
@@ -114,4 +119,15 @@ public class BasicCastInfo {
         this.captions = captions;
     }
 
+    public JSONObject getMediaConfig() {
+        Gson gson = new Gson();
+        String mediaConfigStr = gson.toJson(this);
+        JSONObject mediaConfig = new JSONObject();
+        try {
+           mediaConfig.put("mediaConfig", mediaConfig);
+        } catch (JSONException e ) {
+            e.printStackTrace();
+        }
+        return mediaConfig;
+    }
 }
