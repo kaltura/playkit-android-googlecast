@@ -23,6 +23,7 @@ import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
 import com.kaltura.playkit.plugins.googlecast.caf.basic.PlaybackParams;
 
 import org.json.JSONObject;
@@ -83,31 +84,31 @@ public class KalturaBasicCAFCastBuilder {
 
         JSONObject customData = castInfo.getCustomData();
 
+
         MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
-        List<MediaTrack> mediaTracks = new ArrayList<>();
-        MediaTrack englishSubtitle = new MediaTrack.Builder(1 /* ID */,
-                MediaTrack.TYPE_TEXT)
-                .setName("Eng")
-                .setContentId("https://qa-apache-php7.dev.kaltura.com/api_v3/index.php/service/caption_captionAsset/action/serve/captionAssetId/0_kd5r6b9c/v/2")
-                /* language is required for subtitle type but optional otherwise */
-                .setLanguage("en")
-                .build();
-
-        MediaTrack frenchSubtitle = new MediaTrack.Builder(2, MediaTrack.TYPE_TEXT)
-                .setName("FR")
-                .setContentId("https://qa-apache-php7.dev.kaltura.com/api_v3/index.php/service/caption_captionAsset/action/serve/captionAssetId/0_y5h9dvc1/v/2")
-                .setLanguage("fr")
-                .build();
-
-
-        mediaTracks.add(englishSubtitle);
-        mediaTracks.add(frenchSubtitle);
-        mediaInfoBuilder.setMediaTracks(mediaTracks);
+        setMediaTracks(mediaInfoBuilder, castInfo);
         setStreamType(mediaInfoBuilder, castInfo);
         setOptionalData(mediaInfoBuilder, castInfo);
 
         return mediaInfoBuilder.build();
+    }
 
+    private void setMediaTracks(MediaInfo.Builder mediaInfoBuilder, KalturaBasicCastInfo castInfo ) {
+        List<Caption> externalCaptions = castInfo.getExternalVttCaptions();
+        if (externalCaptions == null || externalCaptions.isEmpty()) {
+            return;
+        }
+
+        List<MediaTrack> mediaTracks = new ArrayList<>();
+        int trackIndex = 1;
+        for (Caption caption : externalCaptions) {
+            MediaTrack textTrack = new MediaTrack.Builder(trackIndex++, MediaTrack.TYPE_TEXT)
+                    .setName(caption.label)
+                    .setContentId(caption.url)
+                    .setLanguage(caption.language).build();
+            mediaTracks.add(textTrack);
+        }
+        mediaInfoBuilder.setMediaTracks(mediaTracks);
     }
 
     /*

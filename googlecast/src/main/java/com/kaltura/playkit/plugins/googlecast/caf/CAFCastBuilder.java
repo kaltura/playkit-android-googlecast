@@ -17,14 +17,19 @@ import android.text.TextUtils;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
+import com.google.android.gms.cast.MediaTrack;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.google.android.gms.cast.VastAdsRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
@@ -152,6 +157,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
 
         //setContentType(mediaInfoBuilder, castInfo);  // contentType not needed for new receiver
+        setMediaTracks(mediaInfoBuilder, castInfo);
         setStreamType(mediaInfoBuilder, castInfo);
         setOptionalData(mediaInfoBuilder, castInfo);
 
@@ -159,6 +165,23 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
     }
 
+    private void setMediaTracks( MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
+        List<Caption> externalCaptions = castInfo.getExternalVttCaptions();
+        if (externalCaptions == null || externalCaptions.isEmpty()) {
+            return;
+        }
+
+        List<MediaTrack> mediaTracks = new ArrayList<>();
+        int trackIndex = 1;
+        for (Caption caption : externalCaptions) {
+            MediaTrack textTrack = new MediaTrack.Builder(trackIndex++, MediaTrack.TYPE_TEXT)
+                    .setName(caption.label)
+                    .setContentId(caption.url)
+                    .setLanguage(caption.language).build();
+            mediaTracks.add(textTrack);
+        }
+        mediaInfoBuilder.setMediaTracks(mediaTracks);
+    }
     /*
     This method sets data that isn't mandatory, and the developer may not provide
      */

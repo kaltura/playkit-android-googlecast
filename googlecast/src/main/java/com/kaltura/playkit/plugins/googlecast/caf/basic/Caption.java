@@ -10,4 +10,14 @@ public class Caption {
     public String language;
     public String label;
     public String url;
+
+    public Caption() {}
+
+    public Caption(Boolean isDefault, String type, String language, String label, String url) {
+        this.isDefault = isDefault;
+        this.type = type;
+        this.language = language;
+        this.label = label;
+        this.url = url;
+    }
 }

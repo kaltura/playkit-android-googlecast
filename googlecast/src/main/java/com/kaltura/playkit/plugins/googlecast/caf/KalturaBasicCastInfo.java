@@ -18,14 +18,13 @@ import android.text.TextUtils;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
 import com.kaltura.playkit.plugins.googlecast.caf.basic.PlaybackParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
 
 class KalturaBasicCastInfo {
 
@@ -116,6 +115,13 @@ class KalturaBasicCastInfo {
             e.printStackTrace();
         }
         return customData;
+    }
+
+    public List<Caption> getExternalVttCaptions() {
+        if (playbackParams != null) {
+            return playbackParams.captions;
+        }
+        return null;
     }
 }
 
