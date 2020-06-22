@@ -91,7 +91,7 @@ public class PlaybackParams {
         this.dash = Collections.singletonList(dashSource);
     }
 
-    public void setHlshSource(String id, String url) {
+    public void setHlsSource(String id, String url) {
         Hls hlsSource =  new Hls();
         hlsSource.id = id;
         hlsSource.url = url;
