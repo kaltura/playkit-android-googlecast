@@ -108,6 +108,11 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         return (T) this;
     }
 
+    public T setExternalVttCaptions(List<Caption> externalVttCaptions) {
+        castInfo.setExternalVttCaptions(externalVttCaptions);
+        return (T) this;
+    }
+
     public T setKs(String ks) {
         castInfo.setKs(ks);
         return (T) this;
