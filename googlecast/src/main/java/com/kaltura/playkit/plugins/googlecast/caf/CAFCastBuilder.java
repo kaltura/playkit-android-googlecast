@@ -187,6 +187,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
         mediaInfoBuilder.setMediaTracks(mediaTracks);
     }
+    
     /*
     This method sets data that isn't mandatory, and the developer may not provide
      */
