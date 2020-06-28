@@ -134,7 +134,7 @@ public class KalturaBasicCAFCastBuilder {
                     mediaInfoBuilder.setAdBreakClips(vastAdsConfig.getVastAdBreakClipInfoList());
                     mediaInfoBuilder.setAdBreaks(vastAdsConfig.getVastAdBreakInfoList());
                 }
-            }else if (adsConfig.getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
+            } else if (adsConfig.getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
                 VastAdsRequest vastAdsRequest = null;
                 VmapAdsConfig vmapAdsConfig = (VmapAdsConfig)adsConfig;
                 if (vmapAdsConfig.getVmapAdRequest() != null) {
