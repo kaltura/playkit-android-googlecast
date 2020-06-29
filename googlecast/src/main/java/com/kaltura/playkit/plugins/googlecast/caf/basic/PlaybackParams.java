@@ -1,6 +1,6 @@
 package com.kaltura.playkit.plugins.googlecast.caf.basic;
 
-import android.graphics.Path;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -12,13 +12,16 @@ import java.util.List;
 
 public class PlaybackParams {
 
+    private static final String TAG = PlaybackParams.class.getSimpleName();
 
     public static final String PLUGINS = "plugins";
     public static final String SOURCES = "sources";
-    public static final String APPLICATION_DASH_XML = "application/dash+xml";
-    public static final String APPLICATION_X_MPEG_URL = "application/x-mpegURL";
-    public static final String VIDEO_MP_4 = "video/mp4";
-    public static final String COM_WIDEVINE_ALPHA = "com.widevine.alpha";
+
+    public static final String MIMETYPE_DASH = "application/dash+xml";
+    public static final String MIMETYPE_HLS = "application/x-mpegURL";
+    public static final String MIMETYPE_MP4 = "video/mp4";
+
+    public static final String DRMSCHEME_WIDEVINE = "com.widevine.alpha";
 
     public String poster;
     public JSONObject options = new JSONObject();
@@ -73,7 +76,7 @@ public class PlaybackParams {
             playbackParams.put(PLUGINS, new JSONObject());
             playbackParams.put(SOURCES, new JSONObject(sourcesJson));
         } catch (JSONException e ) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
         return playbackParams;
     }
@@ -82,11 +85,11 @@ public class PlaybackParams {
         Dash dashSource =  new Dash();
         dashSource.id = id;
         dashSource.url = url;
-        dashSource.mimetype = APPLICATION_DASH_XML;
+        dashSource.mimetype = MIMETYPE_DASH;
 
         DrmData drmData = new DrmData();
         drmData.licenseUrl = licenseUrl;
-        drmData.scheme = COM_WIDEVINE_ALPHA;
+        drmData.scheme = DRMSCHEME_WIDEVINE;
         dashSource.drmData = Collections.singletonList(drmData);
         this.dash = Collections.singletonList(dashSource);
     }
@@ -95,104 +98,16 @@ public class PlaybackParams {
         Hls hlsSource =  new Hls();
         hlsSource.id = id;
         hlsSource.url = url;
-        hlsSource.mimetype = APPLICATION_X_MPEG_URL;
+        hlsSource.mimetype = MIMETYPE_HLS;
         this.hls = Collections.singletonList(hlsSource);
     }
 
-    public void setProgressivehSource(String id, String url) {
+    public void setProgressiveSource(String id, String url) {
         Progressive progressivSource =  new Progressive();
         progressivSource.id = id;
         progressivSource.url = url;
-        progressivSource.mimetype = VIDEO_MP_4;
+        progressivSource.mimetype = MIMETYPE_MP4;
 
         this.progressive = Collections.singletonList(progressivSource);
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public List<Hls> getHls() {
-        return hls;
-    }
-
-    public void setHls(List<Hls> hls) {
-        this.hls = hls;
-    }
-
-    public List<Dash> getDash() {
-        return dash;
-    }
-
-    public void setDash(List<Dash> dash) {
-        this.dash = dash;
-    }
-
-    public List<Progressive> getProgressive() {
-        return progressive;
-    }
-
-    public void setProgressive(List<Progressive> progressive) {
-        this.progressive = progressive;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Boolean getDvr() {
-        return dvr;
-    }
-
-    public void setDvr(Boolean dvr) {
-        this.dvr = dvr;
-    }
-
-    public Object getVr() {
-        return vr;
-    }
-
-    public void setVr(Object vr) {
-        this.vr = vr;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
-    }
-
-    public List<Caption> getCaptions() {
-        return captions;
-    }
-
-    public void setCaptions(List<Caption> captions) {
-        this.captions = captions;
     }
 }
