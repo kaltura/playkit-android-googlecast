@@ -98,9 +98,7 @@ class KalturaBasicCastInfo {
         this.adsConfig = adsConfig;
         return this;
     }
-
-
-
+    
     public JSONObject getCustomData() {
         JSONObject customData = new JSONObject();
         try {
