@@ -13,164 +13,87 @@
 package com.kaltura.playkit.plugins.googlecast.caf;
 
 import androidx.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.MediaTrack;
 import com.google.android.gms.cast.TextTrackStyle;
-import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.google.android.gms.cast.VastAdsRequest;
+import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VastAdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdRequest;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
+import com.kaltura.playkit.plugins.googlecast.caf.basic.PlaybackParams;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
+public class KalturaBasicCAFCastBuilder {
 
-    private static final String TAG = CAFCastBuilder.class.getSimpleName();
+    private static final String TAG = KalturaBasicCAFCastBuilder.class.getSimpleName();
 
-    public enum StreamType {
-        VOD,
-        LIVE
-    }
-
-    public enum HttpProtocol {
-        Http("http"),
-        Https("https"),
-        All("all");
-
-        public String value;
-
-        HttpProtocol(String value){
-            this.value = value;
-        }
-    }
-
-    public enum KalturaAssetType {
-        Media("media"),
-        Epg("epg"),
-        Recording("recording");
-
-        public String value;
-
-        KalturaAssetType(String value){
-            this.value = value;
-        }
-    }
-
-    public enum PlaybackContextType {
-        Trailer("TRAILER"),
-        Catchup("CATCHUP"),
-        StartOver("START_OVER"),
-        Playback("PLAYBACK");
-
-        public String value;
-
-        PlaybackContextType(String value){
-            this.value = value;
-        }
-    }
-
-    public enum AssetReferenceType {
-        Media("media"),
-        InternalEpg("epg_internal"),
-        ExternalEpg("epg_external");
-
-        public String value;
-
-        AssetReferenceType(String value){
-            this.value = value;
-        }
-    }
-
-    public enum AdTagType {
-        UNKNOWN,
-        VMAP,
-        VAST
-    }
 
     private static final String CONTENT_ID = "CONTENT_ID";
-    KalturaCastInfo castInfo;
+    KalturaBasicCastInfo castInfo;
 
-
-    public CAFCastBuilder() {
-        castInfo = new KalturaCastInfo();
+    public KalturaBasicCAFCastBuilder(PlaybackParams playbackParams) {
+        castInfo = new KalturaBasicCastInfo(playbackParams);
     }
 
-    public T setAdsConfig(AdsConfig adsConfig) {
+    public KalturaBasicCAFCastBuilder setAdsConfig(AdsConfig adsConfig) {
         castInfo.setAdsConfig(adsConfig);
-        return (T) this;
+        return this;
     }
 
-    public T setExternalVttCaptions(List<Caption> externalVttCaptions) {
-        castInfo.setExternalVttCaptions(externalVttCaptions);
-        return (T) this;
-    }
-
-    public T setKs(String ks) {
-        castInfo.setKs(ks);
-        return (T) this;
-    }
-
-    public T setMediaEntryId(@NonNull String mediaEntryId) {
-        castInfo.setMediaEntryId(mediaEntryId);
-        return (T) this;
-    }
-
-    public T setMetadata(@NonNull MediaMetadata mediaMetadata) {
+    public KalturaBasicCAFCastBuilder setMetadata(@NonNull MediaMetadata mediaMetadata) {
         castInfo.setMediaMetadata(mediaMetadata);
-        return (T) this;
+        return this;
     }
 
-    public T setTextTrackStyle(@NonNull TextTrackStyle textTrackStyle) {
+    public KalturaBasicCAFCastBuilder setTextTrackStyle(@NonNull TextTrackStyle textTrackStyle) {
         castInfo.setTextTrackStyle(textTrackStyle);
-        return (T) this;
+        return this;
     }
 
-    public T setDefaultTextLangaugeCode(String textLanguage) {
+    public KalturaBasicCAFCastBuilder setDefaultTextLangaugeCode(String textLanguage) {
         castInfo.setDefaultTextLangaugeCode(textLanguage);
-        return (T) this;
+        return this;
     }
 
-    public T setDefaultAudioLangaugeCode(String audioLanguage) {
+    public KalturaBasicCAFCastBuilder setDefaultAudioLangaugeCode(String audioLanguage) {
         castInfo.setDefaultAudioLanguageCode(audioLanguage);
-        return (T) this;
+        return this;
     }
 
-    public T setStreamType(@NonNull StreamType streamType) {
+    public KalturaBasicCAFCastBuilder setStreamType(@NonNull CAFCastBuilder.StreamType streamType) {
         castInfo.setStreamType(streamType);
-        return (T) this;
+        return this;
     }
 
     public MediaInfo build() {
         return getMediaInfo(castInfo);
     }
 
-    private MediaInfo getMediaInfo(KalturaCastInfo castInfo) {
+    private MediaInfo getMediaInfo(KalturaBasicCastInfo castInfo) {
 
         validate(castInfo);
 
 
         JSONObject customData = castInfo.getCustomData();
 
-        MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
 
-        //setContentType(mediaInfoBuilder, castInfo);  // contentType not needed for new receiver
+        MediaInfo.Builder mediaInfoBuilder = new MediaInfo.Builder(CONTENT_ID).setCustomData(customData);
         setMediaTracks(mediaInfoBuilder, castInfo);
         setStreamType(mediaInfoBuilder, castInfo);
         setOptionalData(mediaInfoBuilder, castInfo);
 
         return mediaInfoBuilder.build();
-
     }
 
-    private void setMediaTracks( MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
+    private void setMediaTracks(MediaInfo.Builder mediaInfoBuilder, KalturaBasicCastInfo castInfo ) {
         List<Caption> externalCaptions = castInfo.getExternalVttCaptions();
         if (externalCaptions == null || externalCaptions.isEmpty()) {
             return;
@@ -187,11 +110,11 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
         mediaInfoBuilder.setMediaTracks(mediaTracks);
     }
-    
+
     /*
     This method sets data that isn't mandatory, and the developer may not provide
      */
-    private void setOptionalData(MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
+    private void setOptionalData(MediaInfo.Builder mediaInfoBuilder, KalturaBasicCastInfo castInfo) {
 
         MediaMetadata mediaMetadata = castInfo.getMediaMetadata();
         if (mediaMetadata != null) {
@@ -205,13 +128,13 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
         AdsConfig adsConfig = castInfo.getAdsConfig();
         if (adsConfig != null) {
-            if (adsConfig.getAdTagType() == AdTagType.VAST) {
+            if (adsConfig.getAdTagType() == CAFCastBuilder.AdTagType.VAST) {
                 VastAdsConfig vastAdsConfig = (VastAdsConfig) adsConfig;
                 if (vastAdsConfig.getVastAdBreakClipInfoList() != null && vastAdsConfig.getVastAdBreakInfoList() != null) {
                     mediaInfoBuilder.setAdBreakClips(vastAdsConfig.getVastAdBreakClipInfoList());
                     mediaInfoBuilder.setAdBreaks(vastAdsConfig.getVastAdBreakInfoList());
                 }
-            }else if (adsConfig.getAdTagType() == AdTagType.VMAP) {
+            } else if (adsConfig.getAdTagType() == CAFCastBuilder.AdTagType.VMAP) {
                 VastAdsRequest vastAdsRequest = null;
                 VmapAdsConfig vmapAdsConfig = (VmapAdsConfig)adsConfig;
                 if (vmapAdsConfig.getVmapAdRequest() != null) {
@@ -229,7 +152,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
     }
 
-    private void setStreamType(MediaInfo.Builder mediaInfoBuilder, KalturaCastInfo castInfo) {
+    private void setStreamType(MediaInfo.Builder mediaInfoBuilder, KalturaBasicCastInfo castInfo) {
 
         CAFCastBuilder.StreamType streamType = castInfo.getStreamType();
         if (streamType == null) {
@@ -255,9 +178,9 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         mediaInfoBuilder.setStreamType(castStreamType);
     }
 
-    private void validate(KalturaCastInfo castInfo) throws IllegalArgumentException {
+    private void validate(KalturaBasicCastInfo castInfo) throws IllegalArgumentException {
 
-        if (TextUtils.isEmpty(castInfo.getMediaEntryId())) {
+        if (castInfo.getCustomData() == null) {
             throw new IllegalArgumentException();
         }
 

@@ -19,6 +19,7 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
+import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +52,7 @@ class KalturaCastInfo {
     private TextTrackStyle textTrackStyle; // optional
     private CAFCastBuilder.StreamType streamType; // optional
     private AdsConfig adsConfig; // optional
+    private List<Caption> externalVttCaptions;
 
     //Phoenix
     private CAFCastBuilder.KalturaAssetType mediaType;
@@ -186,6 +188,14 @@ class KalturaCastInfo {
     public KalturaCastInfo setProtocol(CAFCastBuilder.HttpProtocol protocol) {
         this.protocol = protocol;
         return this;
+    }
+
+    public List<Caption> getExternalVttCaptions() {
+        return externalVttCaptions;
+    }
+
+    public void setExternalVttCaptions(List<Caption> externalVttCaptions) {
+        this.externalVttCaptions = externalVttCaptions;
     }
 
     public JSONObject getCustomData() {
