@@ -32,7 +32,7 @@ public class PlaybackParams {
     public Integer duration;
     public String type;
     public Boolean dvr;
-    public Object vr;
+    public Object vr; // if vr Object is null means is no VR if vr Object is empy json it means vr media
     public Metadata metadata;
     public List<Caption> captions = null;
 
