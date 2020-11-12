@@ -46,4 +46,14 @@ public class KalturaPhoenixCastBuilder extends CAFCastBuilder<KalturaPhoenixCast
         castInfo.setAssetReferenceType(assetReferenceType);
         return this;
     }
+
+    public KalturaPhoenixCastBuilder setStreamerType(KalturaStreamerType streamerType) {
+        castInfo.setStreamerType(streamerType);
+        return this;
+    }
+
+    public KalturaPhoenixCastBuilder setUrlType(KalturaUrlType urlType) {
+        castInfo.setUrlType(urlType);
+        return this;
+    }
 }
