@@ -43,6 +43,9 @@ class KalturaCastInfo {
     public static final String PROTOCOL = "protocol";
     public static final String FILE_IDS = "fileIds";
     public static final String FORMATS = "formats";
+    public static final String STREAMER_TYPE = "streamerType";
+    public static final String URL_TYPE = "urlType";
+
 
     private String mediaEntryId;
     private String ks;                     // optional
@@ -59,6 +62,8 @@ class KalturaCastInfo {
     private CAFCastBuilder.AssetReferenceType assetReferenceType;
     private CAFCastBuilder.PlaybackContextType contextType;
     private CAFCastBuilder.HttpProtocol protocol;
+    private CAFCastBuilder.KalturaStreamerType streamerType;
+    private CAFCastBuilder.KalturaUrlType urlType;
     private String fileIds; // 'FILE_ID1,FILE_ID2'
     private List<String> formats; //['Device_Format_1', 'Device_Format_2', 'Device_Format_3']
 
@@ -190,6 +195,24 @@ class KalturaCastInfo {
         return this;
     }
 
+    public CAFCastBuilder.KalturaStreamerType getStreamerType() {
+        return streamerType;
+    }
+
+    public KalturaCastInfo setStreamerType(CAFCastBuilder.KalturaStreamerType streamerType) {
+        this.streamerType = streamerType;
+        return this;
+    }
+
+    public CAFCastBuilder.KalturaUrlType getUrlType() {
+        return urlType;
+    }
+
+    public KalturaCastInfo setUrlType(CAFCastBuilder.KalturaUrlType urlType) {
+        this.urlType = urlType;
+        return this;
+    }
+
     public List<Caption> getExternalVttCaptions() {
         return externalVttCaptions;
     }
@@ -218,6 +241,12 @@ class KalturaCastInfo {
             }
             if (getProtocol() != null) {
                 mediaData.put(PROTOCOL, getProtocol().value);
+            }
+            if (getStreamerType() != null) {
+                mediaData.put(STREAMER_TYPE, getStreamerType().value);
+            }
+            if (getUrlType() != null) {
+                mediaData.put(URL_TYPE, getUrlType().value);
             }
             if (!TextUtils.isEmpty(getFileIds())) {
                 mediaData.put(FILE_IDS, getFileIds());

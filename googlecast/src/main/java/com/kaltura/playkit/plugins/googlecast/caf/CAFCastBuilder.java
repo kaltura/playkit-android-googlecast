@@ -89,6 +89,31 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         }
     }
 
+    public enum KalturaUrlType {
+        PlayManifest("PLAYMANIFEST"),
+        Direct("DIRECT");
+
+        public String value;
+
+        KalturaUrlType(String value){
+            this.value = value;
+        }
+    }
+
+    public enum KalturaStreamerType {
+        Applehttp("applehttp"),
+        Mpegdash("mpegdash"),
+        Url("url"),
+        Smothstreaming("smothstreaming"),
+        None("none");
+
+        public String value;
+
+        KalturaStreamerType(String value){
+            this.value = value;
+        }
+    }
+
     public enum AdTagType {
         UNKNOWN,
         VMAP,

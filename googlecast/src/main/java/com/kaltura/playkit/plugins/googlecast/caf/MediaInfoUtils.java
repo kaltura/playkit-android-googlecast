@@ -57,6 +57,8 @@ public class MediaInfoUtils {
                                               CAFCastBuilder.KalturaAssetType mediaType,
                                               CAFCastBuilder.AssetReferenceType assetReferenceType,
                                               CAFCastBuilder.PlaybackContextType playbackContextType,
+                                              CAFCastBuilder.KalturaStreamerType streamerType,
+                                              CAFCastBuilder.KalturaUrlType urlType,
                                               List<String> formats,
                                               String fileIds,
                                               CAFCastBuilder.HttpProtocol protocol,
@@ -72,6 +74,8 @@ public class MediaInfoUtils {
                 .setMediaType(mediaType)
                 .setAssetReferenceType(assetReferenceType)
                 .setContextType(playbackContextType)
+                .setStreamerType(streamerType)
+                .setUrlType(urlType)
                 .setFormats(formats)
                 .setFileIds(fileIds)
                 .setProtocol(protocol)
