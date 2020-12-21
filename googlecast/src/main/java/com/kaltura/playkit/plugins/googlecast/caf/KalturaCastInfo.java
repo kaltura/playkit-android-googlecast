@@ -123,19 +123,25 @@ class KalturaCastInfo {
     }
 
     @Nullable
-    public JsonObject getAdapterDataJson() {
+    public JSONObject getAdapterDataJson() {
         if (adapterData == null || adapterData.isEmpty()) {
             return null;
         }
-        
-        JsonObject adapterDataJson = new JsonObject();
-        for (Map.Entry<String,String> adapterDataEntry : adapterData.entrySet()) {
-            JsonObject adapterDataItemJsonInternal = new JsonObject();
-            if (adapterDataEntry == null || TextUtils.isEmpty(adapterDataEntry.getValue())) {
-                continue;
+        JSONObject adapterDataJson = new JSONObject();
+
+        try {
+            for (Map.Entry<String,String> adapterDataEntry : adapterData.entrySet()) {
+                JSONObject adapterDataItemJsonInternal = new JSONObject();
+                if (adapterDataEntry == null || TextUtils.isEmpty(adapterDataEntry.getValue())) {
+                    continue;
+                }
+
+                adapterDataItemJsonInternal.put("value", adapterDataEntry.getValue());
+                adapterDataJson.put(adapterDataEntry.getKey(), adapterDataItemJsonInternal);
             }
-            adapterDataItemJsonInternal.addProperty("value", adapterDataEntry.getValue());
-            adapterDataJson.add(adapterDataEntry.getKey(), adapterDataItemJsonInternal);
+        }
+        catch (JSONException e) {
+            return null;
         }
         return adapterDataJson;
     }
