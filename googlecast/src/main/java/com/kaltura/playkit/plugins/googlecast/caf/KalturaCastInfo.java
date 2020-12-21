@@ -15,6 +15,8 @@ package com.kaltura.playkit.plugins.googlecast.caf;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 
 class KalturaCastInfo {
@@ -45,6 +48,8 @@ class KalturaCastInfo {
     public static final String FORMATS = "formats";
     public static final String STREAMER_TYPE = "streamerType";
     public static final String URL_TYPE = "urlType";
+    public static final String ADAPTER_DATA = "adapterData";
+
 
 
     private String mediaEntryId;
@@ -64,6 +69,7 @@ class KalturaCastInfo {
     private CAFCastBuilder.HttpProtocol protocol;
     private CAFCastBuilder.KalturaStreamerType streamerType;
     private CAFCastBuilder.KalturaUrlType urlType;
+    private Map<String,String> adapterData;
     private String fileIds; // 'FILE_ID1,FILE_ID2'
     private List<String> formats; //['Device_Format_1', 'Device_Format_2', 'Device_Format_3']
 
@@ -108,6 +114,34 @@ class KalturaCastInfo {
 
     public MediaMetadata getMediaMetadata() {
         return mediaMetadata;
+    }
+
+    public Map<String, String> getAdapterData() {
+        return adapterData;
+    }
+
+    @Nullable
+    public JSONObject getAdapterDataJson() {
+        if (adapterData == null || adapterData.isEmpty()) {
+            return null;
+        }
+        JSONObject adapterDataJson = new JSONObject();
+
+        try {
+            for (Map.Entry<String,String> adapterDataEntry : adapterData.entrySet()) {
+                JSONObject adapterDataItemJsonInternal = new JSONObject();
+                if (adapterDataEntry == null || TextUtils.isEmpty(adapterDataEntry.getValue())) {
+                    continue;
+                }
+
+                adapterDataItemJsonInternal.put("value", adapterDataEntry.getValue());
+                adapterDataJson.put(adapterDataEntry.getKey(), adapterDataItemJsonInternal);
+            }
+        }
+        catch (JSONException e) {
+            return null;
+        }
+        return adapterDataJson;
     }
 
     public KalturaCastInfo setMediaMetadata(MediaMetadata mediaMetadata) {
@@ -213,6 +247,13 @@ class KalturaCastInfo {
         return this;
     }
 
+    public KalturaCastInfo setAdapterData(Map<String,String> adapterData) {
+        if (adapterData != null && !adapterData.isEmpty()) {
+            this.adapterData = adapterData;
+        }
+        return this;
+    }
+
     public List<Caption> getExternalVttCaptions() {
         return externalVttCaptions;
     }
@@ -241,6 +282,9 @@ class KalturaCastInfo {
             }
             if (getProtocol() != null) {
                 mediaData.put(PROTOCOL, getProtocol().value);
+            }
+            if (getAdapterData() != null && !getAdapterData().isEmpty()) {
+                mediaData.put(ADAPTER_DATA, getAdapterDataJson());
             }
             if (getStreamerType() != null) {
                 mediaData.put(STREAMER_TYPE, getStreamerType().value);
