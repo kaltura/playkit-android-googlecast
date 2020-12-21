@@ -285,7 +285,7 @@ class KalturaCastInfo {
             if (getProtocol() != null) {
                 mediaData.put(PROTOCOL, getProtocol().value);
             }
-            if (getAdapterData() != null) {
+            if (getAdapterData() != null && !getAdapterData().isEmpty()) {
                 mediaData.put(ADAPTER_DATA, getAdapterDataJson());
             }
             if (getStreamerType() != null) {
