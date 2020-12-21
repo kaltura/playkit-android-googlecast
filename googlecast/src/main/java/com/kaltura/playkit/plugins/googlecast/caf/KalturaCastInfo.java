@@ -20,8 +20,6 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.TextTrackStyle;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.AdsConfig;
 import com.kaltura.playkit.plugins.googlecast.caf.basic.Caption;
 
