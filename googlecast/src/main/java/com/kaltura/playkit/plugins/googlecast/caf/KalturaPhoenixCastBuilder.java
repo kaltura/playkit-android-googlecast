@@ -13,7 +13,7 @@
 package com.kaltura.playkit.plugins.googlecast.caf;
 
 import java.util.List;
-
+import java.util.Map;
 
 
 public class KalturaPhoenixCastBuilder extends CAFCastBuilder<KalturaPhoenixCastBuilder> {
@@ -54,6 +54,11 @@ public class KalturaPhoenixCastBuilder extends CAFCastBuilder<KalturaPhoenixCast
 
     public KalturaPhoenixCastBuilder setUrlType(KalturaUrlType urlType) {
         castInfo.setUrlType(urlType);
+        return this;
+    }
+
+    public KalturaPhoenixCastBuilder setAdapterData(Map<String,String> adapterData) {
+        castInfo.setAdapterData(adapterData);
         return this;
     }
 }
