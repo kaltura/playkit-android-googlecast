@@ -148,6 +148,11 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         return (T) this;
     }
 
+    public T setReferenceId(@NonNull String referenceId) {
+        castInfo.setReferenceId(referenceId);
+        return (T) this;
+    }
+    
     public T setMetadata(@NonNull MediaMetadata mediaMetadata) {
         castInfo.setMediaMetadata(mediaMetadata);
         return (T) this;
@@ -282,7 +287,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
 
     private void validate(KalturaCastInfo castInfo) throws IllegalArgumentException {
 
-        if (TextUtils.isEmpty(castInfo.getMediaEntryId())) {
+        if (TextUtils.isEmpty(castInfo.getMediaEntryId()) && TextUtils.isEmpty(castInfo.getReferenceId())) {
             throw new IllegalArgumentException();
         }
 

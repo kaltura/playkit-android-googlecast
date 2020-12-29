@@ -33,6 +33,7 @@ import java.util.Map;
 
 class KalturaCastInfo {
     public static final String ENTRY_ID = "entryId";
+    public static final String REFERENCE_ID = "referenceId";
     public static final String KS = "ks";
     public static final String MEDIA_INFO = "mediaInfo";
     public static final String TEXT_LANGUAGE = "textLanguage";
@@ -53,6 +54,7 @@ class KalturaCastInfo {
 
 
     private String mediaEntryId;
+    private String referenceId;            // optional in OVP instead of mediaEntryId
     private String ks;                     // optional
     private String textLanguage;           // optional
     private String audioLanguage;          // optional
@@ -80,11 +82,20 @@ class KalturaCastInfo {
         return mediaEntryId;
     }
 
+    public String getReferenceId() {
+        return referenceId;
+    }
+
     public KalturaCastInfo setMediaEntryId(String mediaEntryId) {
         this.mediaEntryId = mediaEntryId;
         return this;
     }
 
+    public KalturaCastInfo setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+        return this;
+    }
+    
     public String getKs() {
         return ks;
     }
@@ -266,7 +277,11 @@ class KalturaCastInfo {
         JSONObject customData = new JSONObject();
         try {
             JSONObject mediaData = new JSONObject();
-            mediaData.put(ENTRY_ID, getMediaEntryId());
+            if (!TextUtils.isEmpty(getMediaEntryId())) {
+                mediaData.put(ENTRY_ID, getMediaEntryId());
+            } else if (!TextUtils.isEmpty(getReferenceId())) {
+                mediaData.put(REFERENCE_ID, getReferenceId());
+            }
             if (!TextUtils.isEmpty(getKs())) {
                 mediaData.put(KS, getKs());
             }
