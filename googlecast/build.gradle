@@ -58,3 +58,6 @@ repositories {
     jcenter()
     maven { url "https://jitpack.io" }
 }
+
+apply from: './gradle-mvn-push.gradle'
+
