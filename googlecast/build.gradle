@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 apply from: 'version.gradle'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName libVersion
 
@@ -35,11 +35,11 @@ dependencies {
 
     // Google Cast
 
-    api ('com.google.android.gms:play-services-cast-framework:18.1.0')/* {
+    api ('com.google.android.gms:play-services-cast-framework:19.0.0')/* {
         exclude group: 'com.android.support', module: 'support-v4'
     }*/
     api 'com.google.android.datatransport:transport-api:2.2.1'
-    api 'androidx.mediarouter:mediarouter:1.1.0'
+    api 'androidx.mediarouter:mediarouter:1.2.2'
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.5'
