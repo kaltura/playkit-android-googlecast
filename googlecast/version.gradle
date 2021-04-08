@@ -9,22 +9,3 @@ if (libVersion == 'dev') {
     def commit = proc.text.trim()
     ext.libVersion = 'dev.' + commit
 }
-
-
-// Publish to Bintray
-//try {
-//    apply plugin: 'bintray-release'
-//
-//    publish {
-//        artifactId = 'googlecast'
-//        desc = 'PlayKit Google Cast Addon'
-//        repoName = 'android'
-//        userOrg = 'kaltura'
-//        groupId = 'com.kaltura.playkit'
-//        publishVersion = libVersion
-//        autoPublish = true
-//        licences = ['AGPL-3.0']
-//    }
-//} catch (UnknownPluginException ignored) {
-//    // Ignore - it's ok not to have this plugin - it's only used for bintray uploads.
-//}
