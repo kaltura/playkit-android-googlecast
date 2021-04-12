@@ -59,5 +59,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-apply from: './gradle-mvn-push.gradle'
+if (hasProperty('VERSION_NAME')) {
+    apply from: './gradle-mvn-push.gradle'
+}
 
