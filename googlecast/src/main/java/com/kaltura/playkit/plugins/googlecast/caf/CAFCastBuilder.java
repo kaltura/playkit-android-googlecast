@@ -105,6 +105,7 @@ public abstract class CAFCastBuilder<T extends CAFCastBuilder<T>> {
         Mpegdash("mpegdash"),
         Url("url"),
         Smothstreaming("smothstreaming"),
+        Multicast("multicast"),
         None("none");
 
         public String value;
