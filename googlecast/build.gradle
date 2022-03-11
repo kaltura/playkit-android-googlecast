@@ -35,11 +35,11 @@ dependencies {
 
     // Google Cast
 
-    api ('com.google.android.gms:play-services-cast-framework:19.0.0')/* {
+    api ('com.google.android.gms:play-services-cast-framework:21.0.1')/* {
         exclude group: 'com.android.support', module: 'support-v4'
     }*/
-    api 'com.google.android.datatransport:transport-api:2.2.1'
-    api 'androidx.mediarouter:mediarouter:1.2.2'
+    api 'com.google.android.datatransport:transport-api:3.0.0'
+    api 'androidx.mediarouter:mediarouter:1.2.6'
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
