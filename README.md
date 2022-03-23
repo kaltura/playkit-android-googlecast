@@ -5,9 +5,9 @@
 
 # playkit-android-googlecast
 
-Using the Google Cast plugin, Developers can extend the media to another TV, Audio sytem etc. It will be a remote media streaming and your app will become a remote for it.
+Using the Google Cast plugin, Developers can extend the media to another TV, Audio system etc. It will be a remote media streaming and your app will become a remote for it.
 
-We provide Cast Application Framework(CAF) for it. Our plugin is devloped on top of Google's designed CAF framework.
+We provide Cast Application Framework(CAF) for it. Our plugin is developed on top of Google's designed CAF framework.
 
 Before understanding that how to setup Google cast plugin on Android, let's understand few terms,
 
@@ -15,7 +15,7 @@ Before understanding that how to setup Google cast plugin on Android, let's unde
 Your Android app which gives the user the ability to connect to the casting device, is a Sender Application.
 
 ##### Receiver Application:
-When your sender app connects to the cast device then cast device downloads an script from the server which is actually configured against the CastId for your application. Basically it's a Web reciever Application. [How to build a Receiver Application](https://github.com/kaltura/playkit-js-cast-receiver)
+When your sender app connects to the cast device then cast device downloads an script from the server which is actually configured against the CastId for your application. Basically it's a Web receiver Application. [How to build a Receiver Application](https://github.com/kaltura/playkit-js-cast-receiver)
 
 ##### Cast Receiver ID: 
 To register the receiver application, Developers has to register on [Google Cast SDK Developer Console](https://cast.google.com/publish). 
@@ -23,7 +23,7 @@ This receiver ID is the gateway for the sender app to communicate with the remot
 
 ### Setup
 
-Add GoogleCast plugin dependency to `build.gradle`. In android, we keep all plugins aligned with same verison.
+Add GoogleCast plugin dependency to `build.gradle`. In android, we keep all plugins aligned with same version.
 
 `implementation 'com.kaltura.playkit:googlecast:x.x.x'`
 
@@ -71,7 +71,7 @@ A menu item can be added for and `Activity`,
 
 This will enable a cast icon in the tool bar menu item.
 
-For the expanded controller for the receiver application. Lauch an activity which extents to Cast framework class `ExpandedControllerActivity`. 
+For the expanded controller for the receiver application. Launch an activity which extents to Cast framework class `ExpandedControllerActivity`. 
 Then in this activity's menu inflation method, app has to setup the `MediaRouteButton`,
 
 ```kotlin
