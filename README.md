@@ -87,14 +87,12 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
 This new acitivity should be launched in ``onStatusUpdated` callback of `RemoteMediaClient.Callback()` on `remoteMediaClient`,
 
 ```kotlin
-
 remoteMediaClient!!.registerCallback(object : RemoteMediaClient.Callback() {
             override fun onStatusUpdated() {
                 val intent = Intent(this@MainActivity, ExpandedControlsActivity::class.java)
                 startActivity(intent)
                 //remoteMediaClient?.unregisterCallback(this)
             }
-            
             ...
             ...
 
@@ -141,29 +139,52 @@ var mediaInfo: MediaInfo = castBuilder.build()
 > How to create `PlaybackParams` for Non-Kaltura Customers 
 
 ```kotlin
-        var playbackParams = PlaybackParams();
+        val playbackParams = PlaybackParams();
         playbackParams.poster = "Poster_URL"
         playbackParams.id = "ID"
         playbackParams.duration = Duration
-        playbackParams.type = "Vod"
+        playbackParams.type = "Vod" // For Live "Live" can be set
         playbackParams.dvr = false
         playbackParams.vr = null
-        playbackParams.dvr = false
-        playbackParams.progressive = listOf<Progressive>()
-        playbackParams.hls = listOf<Hls>()
-
-		 // If DASH source is required 
-        playbackParams.setDashSource("ID","URL","LicenseURL")
+        
+		 // If DASH Widevine source is required 
+        playbackParams.setDashSource("ID","PlaybackURL","LicenseURL")
+        
+        // For Clear DASH
+        // playbackParams.setDashSource("ID","URL","") // Pass empty License URL
+        
+        // Another way of passing clear DASH media
+        // val drmData = DrmData() // This is important to be passed
+        // drmData.licenseUrl = "" // Empty License URL
+        // drmData.scheme = PlaybackParams.DRMSCHEME_WIDEVINE
+        // playbackParams.dash = listOf(Dash("ID","PlaybackURL", PlaybackParams.MIMETYPE_DASH, drmData))
+        
 
         // If HLS source is required 
-        playbackParams.setHlsSource("ID","URL")
+        // playbackParams.setHlsSource("ID","PlaybackURL")
+        
+        // Another way of passing HLS Source
+        // val hlsSource = Hls()
+        // hlsSource.id = "ID"
+        // hlsSource.url = "PlaybackURL"
+        // hlsSource.mimetype = PlaybackParams.MIMETYPE_HLS
+        // playbackParams.hls = listOf(hlsSource)
+        
 
-		 // If Progressive Source (Ex. mp4) is required
-        playbackParams.setProgressivehSource("ID","URL")
+		// If Progressive Source (Ex. mp4) is required
+        // playbackParams.setProgressivehSource("ID","PlaybackURL")
+        
+        // Another way of passing Progressive Source
+        // val progressiveSource = Progressive();
+        // progressiveSource.id = "ID";
+        // progressiveSource.url = "PlaybackURL";
+        // progressiveSource.mimetype = PlaybackParams.MIMETYPE_MP4;
+        // playbackParams.progressive = listOf(progressiveSource)
 
-        val metadata : Metadata = Metadata()
-        metadata.description = ""
-        metadata.name = "Text Tracks"
+        val metadata: Metadata = Metadata()
+        metadata.description = "" // Description Text which will be visible on the media on Cast device
+
+        metadata.name = "Text Tracks" // Title Text which will be visible on the media on Cast device
         metadata.tags = "";
         playbackParams.metadata = metadata
         playbackParams.captions =  // Pass external captions (How to build it is given in the next part of the document)
@@ -173,8 +194,8 @@ var mediaInfo: MediaInfo = castBuilder.build()
 ##### 6. Create `MediaLoadOptions` before actually loading the media using `RemoteMediaClient`
 
 ```kotlin
- var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
-        val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
+var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
+val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
 
 ```
 > **Important:** In case for Live Media, `setPlayPosition` should be passed `-1`
@@ -235,7 +256,7 @@ And then pass this to the respective cast builder object,
 
 #### Next Media Playback (Change Media)
 
-Simply load the next media given in Step-7 above. 
+Simply load the next media given in **Step - 7** above. 
 
 ### Samples:
 
