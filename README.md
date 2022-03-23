@@ -141,7 +141,6 @@ var mediaInfo: MediaInfo = castBuilder.build()
 > How to create `PlaybackParams` for Non-Kaltura Customers 
 
 ```kotlin
-
         var playbackParams = PlaybackParams();
         playbackParams.poster = "Poster_URL"
         playbackParams.id = "ID"
@@ -169,13 +168,11 @@ var mediaInfo: MediaInfo = castBuilder.build()
         playbackParams.metadata = metadata
         playbackParams.captions =  // Pass external captions (How to build it is given in the next part of the document)
 
-
 ```
 
 ##### 6. Create `MediaLoadOptions` before actually loading the media using `RemoteMediaClient`
 
 ```kotlin
-
  var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
         val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
 
@@ -208,7 +205,6 @@ Then pass the `AdsConfig` object to `setAdsConfig` on the respective cast builde
 Create a list of `Caption` object,
 
 ```kotlin
-
 private fun getExternalVttCaptions(): List<Caption> {
         val caption1 = Caption()
         caption1.isDefault = false
@@ -231,7 +227,6 @@ private fun getExternalVttCaptions(): List<Caption> {
         var captions: List<Caption> = mutableListOf(caption1, caption2, caption3)
         return captions
     }
-
 ```
 
 And then pass this to the respective cast builder object,
