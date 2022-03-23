@@ -15,7 +15,7 @@ Before understanding that how to setup Google cast plugin on Android, let's unde
 Your Android app which gives the user the ability to connect to the casting device, is a Sender Application.
 
 ##### Receiver Application:
-When your sender app connects to the cast device then cast device downloads an script from the server which is actually configured against the CastId for your application. Basically it's a Web reciever Application. [More Info](https://developers.google.com/cast/docs/web_receiver)
+When your sender app connects to the cast device then cast device downloads an script from the server which is actually configured against the CastId for your application. Basically it's a Web reciever Application. [How to build a Receiver Application](https://github.com/kaltura/playkit-js-cast-receiver)
 
 ##### Cast Receiver ID: 
 To register the receiver application, Developers has to register on [Google Cast SDK Developer Console](https://cast.google.com/publish). 
@@ -129,15 +129,49 @@ var mediaInfo: MediaInfo = castBuilder.build()
 
 ```
 
-###### GoogleCast for Non Kaltura Customers
+###### GoogleCast for Non Kaltura Customers (Basic Cast Provider)
 
 ```Kotlin
-
 val castBuilder = KalturaBasicCAFCastBuilder(playbackParams)
                 .setStreamType(CAFCastBuilder.StreamType.VOD)
 var mediaInfo: MediaInfo = castBuilder.build()
 
 ```
+
+> How to create `PlaybackParams` for Non-Kaltura Customers 
+
+```kotlin
+
+        var playbackParams = PlaybackParams();
+        playbackParams.poster = "Poster_URL"
+        playbackParams.id = "ID"
+        playbackParams.duration = Duration
+        playbackParams.type = "Vod"
+        playbackParams.dvr = false
+        playbackParams.vr = null
+        playbackParams.dvr = false
+        playbackParams.progressive = listOf<Progressive>()
+        playbackParams.hls = listOf<Hls>()
+
+		 // If DASH source is required 
+        playbackParams.setDashSource("ID","URL","LicenseURL")
+
+        // If HLS source is required 
+        playbackParams.setHlsSource("ID","URL")
+
+		 // If Progressive Source (Ex. mp4) is required
+        playbackParams.setProgressivehSource("ID","URL")
+
+        val metadata : Metadata = Metadata()
+        metadata.description = ""
+        metadata.name = "Text Tracks"
+        metadata.tags = "";
+        playbackParams.metadata = metadata
+        playbackParams.captions =  // Pass external captions (How to build it is given in the next part of the document)
+
+
+```
+
 ##### 6. Create `MediaLoadOptions` before actually loading the media using `RemoteMediaClient`
 
 ```kotlin
