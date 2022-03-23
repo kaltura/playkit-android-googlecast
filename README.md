@@ -198,7 +198,7 @@ var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
 val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
 
 ```
-> **Important:** In case for Live Media, `setPlayPosition` should be passed `-1`
+> **Important: In case for Live Media, `setPlayPosition` should be passed `-1`**
 
 ##### 7. Finally load the `RemoteMediaClient`,
 
