@@ -198,7 +198,9 @@ var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
 val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
 
 ```
-> **Important: In case for Live Media, `setPlayPosition` should be passed `-1`**
+> **NOTE: In case for Live Media, `setPlayPosition` should be passed `MediaInfoUtils.LIVE_EDGE` or `-1000L`**. 
+> 
+> **In case, for VOD assets, app wants to pass the start position for the player, this parameter can be used.**
 
 ##### 7. Finally load the `RemoteMediaClient`,
 
@@ -211,15 +213,32 @@ pendingResult = remoteMediaClient!!.load(mediaInfo object, loadOptions)
 
 For VAST Ad URL, pass AdUrl in `MediaInfoUtils`,
 
-`val adsConfig = MediaInfoUtils.createAdsConfigVastInPosition(0, adTagUrl)`
+`val adsConfig = MediaInfoUtils.createAdsConfigVastInPosition(startPosition, adTagUrl)`
 
 For VMAP, pass AdUrl like this,
 
 `val adsConfig = MediaInfoUtils.createAdsConfigVmap(adTagUrl)`
 
+For VAST Ad response XML, pass ad response to
+
+`MediaInfoUtils.createAdsResponseConfigVastInPosition(startPosition, adResponse)`
+
+For VMAP Ad response XML, pass ad response to
+
+`MediaInfoUtils.createAdResponseConfigVmap(adResponse)`
+
 Then pass the `AdsConfig` object to `setAdsConfig` on the respective cast builder object (OTT/OVP or Basic)
 
 `phoenixCastBuilder.setAdsConfig(Ads_Config)`
+
+`startPosition` is the cast player start position. Let's suppose media is playing back at some position x seconds and when the user connects then app want to media to start from x seconds then use this parameter. This is only meant for VAST ad url/response. It will be one time ad playback.
+
+For VMAP, anyways based on the time offset given in the VMAP, ads will be played.
+
+> **NOTE : We have a plugin called IMA for Ad playback. That is only meant for in app Ad playback. IMA Plugin does not help while doing the cast.**
+
+> **For Cast the above given configuration is must to have otherwise Ad will not play in GoogleCast.**
+
 
 #### Pass External Subtitles for the media
 

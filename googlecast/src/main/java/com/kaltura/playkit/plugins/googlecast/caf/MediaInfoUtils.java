@@ -26,8 +26,18 @@ import com.kaltura.playkit.plugins.googlecast.caf.adsconfig.VmapAdsConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class may be used to build the OVP, OTT media info objects
+ * for Cast builders.
+ * Along with that AdConfig objects can also be build
+ * using Ad URL or Ad response
+ */
 public class MediaInfoUtils {
 
+    /**
+     * Must to set variable in `setPlayPosition`
+     * for the LIVE medias
+     */
     public static final int LIVE_EDGE = -1000;
 
     public static MediaInfo buildOVPMediaInfo(String entryId,
@@ -88,6 +98,13 @@ public class MediaInfoUtils {
         return mediaInfo;
     }
 
+    /**
+     * Create the VAST AdConfig for GoogleCast with playback position
+     *
+     * @param playbackPositionInMs start position in miliseconds
+     * @param adTagUrl VAST ad url
+     * @return AdsConfig
+     */
     public static AdsConfig createAdsConfigVastInPosition(long playbackPositionInMs, String adTagUrl) {
         List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
         VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdTagUrl(adTagUrl).build();
@@ -99,14 +116,51 @@ public class MediaInfoUtils {
         AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(playbackPositionInMs).setBreakClipIds(breakClipIds).setId("101").build();
         adBreakInfoList.add(adBreakInfo1);
 
-        AdsConfig adsConfig = new VastAdsConfig().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
-        return adsConfig;
+        return new VastAdsConfig().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
     }
 
+    /**
+     * Create the VAST AdConfig for GoogleCast with playback position
+     *
+     * @param playbackPositionInMs start position in miliseconds
+     * @param adTagResponse VAST XML ad response
+     * @return AdsConfig
+     */
+    public static AdsConfig createAdsResponseConfigVastInPosition(long playbackPositionInMs, String adTagResponse) {
+        List<AdBreakClipInfo> adBreakClipInfoList = new ArrayList<>();
+        VastAdsRequest vastRequest = new VastAdsRequest.Builder().setAdsResponse(adTagResponse).build();
+        AdBreakClipInfo clipInfo1 = new AdBreakClipInfo.Builder("100").setVastAdsRequest(vastRequest).build();
+        adBreakClipInfoList.add(clipInfo1);
+
+        List<AdBreakInfo> adBreakInfoList = new ArrayList<>();
+        final String[] breakClipIds = new String[]{"100"};
+        AdBreakInfo adBreakInfo1 = new AdBreakInfo.Builder(playbackPositionInMs).setBreakClipIds(breakClipIds).setId("101").build();
+        adBreakInfoList.add(adBreakInfo1);
+
+        return new VastAdsConfig().setVastAdBreakClipInfoList(adBreakClipInfoList).setVastAdBreakInfoList(adBreakInfoList);
+    }
+
+    /**
+     * Create the VMAP AdConfig for GoogleCast
+     *
+     * @param adTagUrl VMAP ad url
+     * @return AdsConfig
+     */
     public static AdsConfig createAdsConfigVmap(String adTagUrl) {
-        AdsConfig adsConfig = new VmapAdsConfig()
+        return new VmapAdsConfig()
                 .setVmapAdRequest(new VmapAdRequest()
                 .setAdTagUrl(adTagUrl));
-        return adsConfig;
+    }
+
+    /**
+     * Create the VMAP AdConfig for GoogleCast
+     *
+     * @param adTagResponse VMAP XML ad response
+     * @return AdsConfig
+     */
+    public static AdsConfig createAdResponseConfigVmap(String adTagResponse) {
+        return new VmapAdsConfig()
+                .setVmapAdRequest(new VmapAdRequest()
+                        .setAdsResponse(adTagResponse));
     }
 }
