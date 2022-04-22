@@ -229,13 +229,17 @@ For VMAP Ad response XML, pass ad response to
 
 Then pass the `AdsConfig` object to `setAdsConfig` on the respective cast builder object (OTT/OVP or Basic)
 
-`phoenixCastBuilder.setAdsConfig(Ads_Config)`
+**OTT:** `phoenixCastBuilder.setAdsConfig(Ads_Config)`
+
+**OVP:** `ovpV3CastBuilder.setAdsConfig(Ads_Config)`
+
+**BASIC:**`basicCastBuilder.setAdsConfig(Ads_Config)`
 
 `startPosition` is the cast player start position. Let's suppose media is playing back at some position x seconds and when the user connects then app want to media to start from x seconds then use this parameter. This is only meant for VAST ad url/response. It will be one time ad playback.
 
 For VMAP, anyways based on the time offset given in the VMAP, ads will be played.
 
-> **NOTE : We have a plugin called IMA for Ad playback. That is only meant for in app Ad playback. IMA Plugin does not help while doing the cast.**
+> **NOTE : We have [IMA Plugin](https://github.com/kaltura/playkit-android-ima) for Ad playback. That is only meant for in app Ad playback. IMA Plugin does not help to play the Ads while using the cast.**
 
 > **For Cast the above given configuration is must to have otherwise Ad will not play in GoogleCast.**
 
