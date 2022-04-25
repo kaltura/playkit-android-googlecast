@@ -38,7 +38,7 @@ public class MediaInfoUtils {
      * Must to set variable in `setPlayPosition`
      * for the LIVE medias
      */
-    public static final int LIVE_EDGE = -1000;
+    public static final long LIVE_EDGE = -1L;
 
     public static MediaInfo buildOVPMediaInfo(String entryId,
                                               String ks,
