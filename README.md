@@ -198,7 +198,7 @@ var pendingResult: PendingResult<RemoteMediaClient.MediaChannelResult>? = null
 val loadOptions = MediaLoadOptions.Builder().setAutoplay(true).setPlayPosition(0L).build()
 
 ```
-> **NOTE: In case for Live Media, `setPlayPosition` should be passed `MediaInfoUtils.LIVE_EDGE` or `-1000L`**. 
+> **NOTE: In case for Live Media, `setPlayPosition` should be passed `MediaInfoUtils.LIVE_EDGE` or `-1L`**. 
 > 
 > **In case, for VOD assets, app wants to pass the start position for the player, this parameter can be used.**
 
