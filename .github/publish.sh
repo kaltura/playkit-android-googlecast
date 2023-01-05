@@ -71,7 +71,7 @@ EOF
     fi
 
     if [ "$RELEASE_TYPE" = "Update" ]; then
-                      JSON_BODY="### Netkit Plugin Support\n\n"
+                      JSON_BODY="### Googlecast Plugin Support\n\n"
                       JSON_BODY="$JSON_BODY$NEW_TAG\n\n"
           JSON_BODY="$JSON_BODY * upgrade to $NEW_TAG\n\n"
           JSON_BODY="$JSON_BODY #### Gradle\n\n"
