@@ -10,13 +10,12 @@ on:
         options:
           - Full
           - Patch
-          - Update
       new_version:
-        description: "New GoogleCast Version (Without 'v' Ex: 1.0.0)"
+        description: "New Version (Without 'v' Ex: 1.0.0)"
         required: true
         type: string
       prev_version:
-        description: "Previous GoogleCast Version (Without 'v' Ex: 1.0.0): Important for Patch and Update"
+        description: "Previous Version (Without 'v' Ex: 1.0.0)"
         required: true
         type: string
 
@@ -29,7 +28,7 @@ env:
   NEXUS_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
   SIGNING_KEYID: ${{ secrets.SIGNING_KEY_ID }}
   SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-  MODULE_NAME: "googlecast"
+  MODULE_NAME: ${{ secrets.MODULE_NAME }}
 
 jobs:
   build:
@@ -43,19 +42,20 @@ jobs:
     steps:
       - name: Checkout repo and clone to CI workspace
         uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       - name: Copy and Decode
         run: |
-            mkdir $PWD/.kltrenv && echo "${{ secrets.SIGNING_KEY }}" > $PWD/.kltrenv/secring.gpg.b64
-            base64 -d $PWD/.kltrenv/secring.gpg.b64 > $PWD/.kltrenv/secring.gpg
+          mkdir $PWD/.kltrenv && echo "${{ secrets.SIGNING_KEY }}" > $PWD/.kltrenv/secring.gpg.b64
+          base64 -d $PWD/.kltrenv/secring.gpg.b64 > $PWD/.kltrenv/secring.gpg
 
       - name: Run publish Script
         run: |
           RELEASE_TYPE=${RELEASE_TYPE} NEW_VERSION=${NEW_VERSION}
           PREV_VERSION=${PREV_VERSION} REPO_NAME=${REPO_NAME}
-          TOKEN=${{ secrets.GITHUB_TOKEN }} MODULE_NAME=${MODULE_NAME} 
-          TEAMS_WEBHOOK=${{ secrets.TEAMS_WEBHOOK }} bash .github/publish.sh
+          TOKEN=${{ secrets.GITHUB_TOKEN }} MODULE_NAME=${MODULE_NAME} TEAMS_WEBHOOK=${{ secrets.TEAMS_WEBHOOK }} bash .github/publish.sh
 
       - name: Delete secring file
         run: |
-            rm -rf $PWD/.kltrenv
+          rm -rf $PWD/.kltrenv
