@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kaltura.playkit.plugins.googlecast" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"/>
